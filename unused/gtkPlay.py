@@ -13,7 +13,7 @@ class GtkPlay:
 		print "show drawing area"
 		area = gtk.DrawingArea()
 		area.add_events(gtk.gdk.BUTTON_PRESS_MASK)
-		area.connect("button_pressed_event", self.on_clicked)
+		area.connect("button-press-event", self.on_clicked)
 
 	def on_clicked(self):
 		print "clicked"
