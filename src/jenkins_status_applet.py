@@ -1,34 +1,75 @@
+#!/usr/bin/env python
+
 import pygtk
 import sys
 pygtk.require('2.0')
-import gtk
 
 import gnomeapplet
 import gtk
 
-class Status:
-    def __init__(self):
-	button = gtk.Button()
-	button.set_relief(gtk.RELIEF_NONE)
-	button.set_label("ExampleButton")
-	button.connect("button-press-event", show_menu, applet)
+class JenkinsStatus(object):
+    def __init__(self, applet):
+        self.create_button()
+        self.create_drawing_area()
 
-    def create_menu(applet):
+    def create_button(self):
+        self.button = gtk.Button()
+	self.button.set_relief(gtk.RELIEF_NONE)
+	self.button.set_label("status button")
+	self.button.connect("button-press-event", self.show_menu, applet)
+
+    def create_drawing_area(self):
+        self.area = gtk.DrawingArea()
+        self.area.set_size_request(100,30)
+        self.area.add_events(gtk.gdk.BUTTON_PRESS_MASK)
+        self.area.connect("button-press-event", self.area_clicked)
+
+    def area_clicked(self, widget, event):
+        print "area clicked"
+
+    def create_menu(self, applet):
 	print "Creating menu"
 	propxml="""
 			<popup name="button3">
 			<menuitem name="Item 3" verb="About" label="_About" pixtype="stock" pixname="gtk-about"/>
 			</popup>"""
-	verbs = [("About", show_about_dialog)]
+	verbs = [("About", self.show_about_dialog)]
 	applet.setup_menu(propxml, verbs, None)
 
-    def show_menu(widget, event, applet):
+    def show_menu(self, widget, event, applet):
 	print "Showing menu"
 	if event.type == gtk.gdk.BUTTON_PRESS and event.button == 3:
 		print "Button3"
 		widget.emit_stop_by_name("button_press_event")
-		create_menu(applet)
+		self.create_menu(applet)
 
-    def show_about_dialog(*arguments, **keywords):
+    def show_about_dialog(self, *arguments, **keywords):
 	print "Showing about dialog"
 	pass
+
+def factory(applet, iid):
+    status = JenkinsStatus(applet)
+
+    hbox = gtk.HBox()
+    hbox.add(status.button)
+    hbox.add(status.area)
+    applet.add(hbox)
+
+    applet.show_all()
+    return True
+
+if len(sys.argv) == 2:
+	if sys.argv[1] == "run-in-window":
+		mainWindow = gtk.Window(gtk.WINDOW_TOPLEVEL)
+		mainWindow.set_title("Ubuntu System Panel")
+		mainWindow.connect("destroy", gtk.main_quit)
+		applet = gnomeapplet.Applet()
+		factory(applet, None)
+		applet.reparent(mainWindow)
+		mainWindow.show_all()
+		gtk.main()
+		sys.exit()
+
+if __name__ == '__main__':
+	print "Starting factory"
+	gnomeapplet.bonobo_factory("OAFIID:My_Factory", gnomeapplet.Applet.__gtype__, "My_New_Applet", "1.0", factory)

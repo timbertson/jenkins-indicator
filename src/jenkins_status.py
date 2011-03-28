@@ -6,8 +6,8 @@ import gtk
 import gnomeapplet 
 import gtk
 
-class Status:
-    def __init__(self):
+class JenkinsStatus(object):
+    def __init__(self, applet):
 	button = gtk.Button()
 	button.set_relief(gtk.RELIEF_NONE)
 	button.set_label("ExampleButton")
