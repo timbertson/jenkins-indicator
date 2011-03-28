@@ -10,17 +10,24 @@ import gtk
 class JenkinsStatus(object):
     def __init__(self, applet):
         self.create_button()
-        self.create_drawing_area()
+        self.create_drawing_area(applet)
+        self.create_color_button()
 
+    def create_color_button(self):
+        self.color_button = gtk.Button()
+        self.color_button.set_label("colour")
+        
     def create_button(self):
         self.button = gtk.Button()
 	self.button.set_relief(gtk.RELIEF_NONE)
 	self.button.set_label("status button")
 	self.button.connect("button-press-event", self.show_menu, applet)
 
-    def create_drawing_area(self):
+    def create_drawing_area(self, applet):
         self.area = gtk.DrawingArea()
         self.area.set_size_request(100,30)
+        #        pixmap = gtk.gdk.Pixmap(applet.window, 100, 30, depth=-1)
+        #        pixmap.draw_rectangle(applet.get_style().white_gc, True, 0, 0, width, height)
         self.area.add_events(gtk.gdk.BUTTON_PRESS_MASK)
         self.area.connect("button-press-event", self.area_clicked)
 
