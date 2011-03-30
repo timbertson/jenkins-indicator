@@ -8,8 +8,8 @@ import gnomeapplet
 import gtk
 from jenkins_status import JenkinsStatus
 
-def factory(applet, something):
-    status = JenkinsStatus(applet)
+def factory(applet, iid):
+    status = JenkinsStatus(applet, iid)
 
     hbox = gtk.HBox()
     hbox.add(status.button)

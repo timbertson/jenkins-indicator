@@ -7,41 +7,52 @@ import gnomeapplet
 import gtk
 
 class JenkinsStatus(object):
-    def __init__(self, applet):
-#        self.applet = applet
-        self.create_button(applet)
-        self.create_drawing_area(applet)
+    def __init__(self, applet, iid):
+        self.applet = applet
+        self.setup()
+
+    def setup(self): 
+        self.create_button()
+        self.create_drawing_area()
         
-    def create_button(self, applet):
+    def create_button(self):
         self.button = gtk.Button()
 	self.button.set_relief(gtk.RELIEF_NONE)
 	self.button.set_label("status button")
-	self.button.connect("button-press-event", self.show_menu, applet)
+	self.button.connect("button-press-event", self.show_menu, self.applet)
 
-    def create_drawing_area(self, applet):
+    def create_drawing_area(self):
         self.area = gtk.DrawingArea()
         self.area.set_size_request(100,30)
-        #        pixmap = gtk.gdk.Pixmap(self.area.window, 100, 30, depth=16)
-        #        pixmap.draw_rectangle(applet.get_style().white_gc, True, 0, 0, 100, 30)
+        self.draw_pixmap()
         self.area.add_events(gtk.gdk.BUTTON_PRESS_MASK)
         self.area.connect("button-press-event", self.area_clicked)
 
-    def configure_event(widget, event):
+    def draw_pixmap(self):
+        pixmap = gtk.gdk.Pixmap(self.area.window, 100, 30, depth=16)
+        self.gc = self.create_gc()
+        pixmap.draw_rectangle(self.gc, True, 0, 0, 100, 30)
+
+    def create_gc(self):
+        red = gtk.gdk.Color(red=255, green=0, blue=0, pixel=0)
+        gc = self.area.window.new_gc(foreground=red)
+        
+    def configure_event(self, event):
         println("configure event")
-        global pixmap
+    #     global pixmap
 
-        x, y, width, height = widget.get_allocation()
-        pixmap = gtk.gdk.Pixmap(widget.window, width, height)
-        pixmap.draw_rectangle(widget.get_style().white_gc,
-                              True, 0, 0, width, height)
-        return True
+    #     x, y, width, height = self.get_allocation()
+    #     pixmap = gtk.gdk.Pixmap(self.window, width, height)
+    #     pixmap.draw_rectangle(self.get_style().white_gc,
+    #                           True, 0, 0, width, height)
+    #     return True
 
-    def expose_event(widget, event):
+    def expose_event(self, event):
         println("expose event")
-        x , y, width, height = event.area
-        widget.window.draw_drawable(widget.get_style().fg_gc[gtk.STATE_NORMAL],
-                                    pixmap, x, y, x, y, width, height)
-        return False
+    #     x , y, width, height = event.area
+    #     widget.window.draw_drawable(self.get_style().fg_gc[gtk.STATE_NORMAL],
+    #                                 pixmap, x, y, x, y, width, height)
+    #     return False
 
     def area_clicked(self, widget, event):
         print "area clicked"
