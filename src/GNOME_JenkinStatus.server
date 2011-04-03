@@ -1,22 +1,22 @@
 <oaf_info>
-  <oaf_server iid="OAFIID:My_Factory" type="exe" location="/home/james/projects/Jenkins-Gnome-Applet/src/jenkins_applet.py">
+  <oaf_server iid="OAFIID:Jenkins_Applet_Factory" type="exe" location="/home/james/projects/Jenkins-Gnome-Applet/src/jenkins_applet.py">
     <oaf_attribute name="repo_ids" type="stringv">
       <item value="IDL:Bonobo/GenericFactory:1.0"/>
       <item value="IDL:Bonobo/Unknown:1.0"/>
     </oaf_attribute>
-    <oaf_attribute name="name" type="string" value="My_Factory"/>
-    <oaf_attribute name="description" type="string" value="My Applet Factory"/>
+    <oaf_attribute name="name" type="string" value="Jenkins_Applet_Factory"/>
+    <oaf_attribute name="description" type="string" value="Jenkins Applet Factory"/>
   </oaf_server>
   
-  <oaf_server iid="OAFIID:My_New_Applet" type="factory" location="OAFIID:My_Factory">
+  <oaf_server iid="OAFIID:Jenkins_Applet" type="factory" location="OAFIID:Jenkins_Applet_Factory">
     <oaf_attribute name="repo_ids" type="stringv">
       <item value="IDL:GNOME/Vertigo/PanelAppletShell:1.0"/>
       <item value="IDL:Bonobo/Control:1.0"/>
       <item value="IDL:Bonobo/Unknown:1.0"/>
     </oaf_attribute>
-    <oaf_attribute name="name" type="string" value="My_New_Applet"/>
-    <oaf_attribute name="description" type="string" value="Description of My_New_Applet"/>
+    <oaf_attribute name="name" type="string" value="Jenkins_Applet"/>
+    <oaf_attribute name="description" type="string" value="Jenkins Applet"/>
     <oaf_attribute name="panel:category" type="string" value="Utility"/>
-    <oaf_attribute name="panel:icon" type="string" value="computer.png"/>
+    <oaf_attribute name="panel:icon" type="string" value="gtk-dialog-question.png"/>
   </oaf_server>
 </oaf_info>

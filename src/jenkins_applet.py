@@ -7,15 +7,16 @@ import gnomeapplet
 import sys
 import gc
 import logging
+from status_parser import StatusParser
 
-class MyApplet(gnomeapplet.Applet):
+class JenkinsApplet(gnomeapplet.Applet):
     LEFT_MOUSE_BUTTON=1
     RIGHT_MOUSE_BUTTON=2
 
-    def __init__(self,applet,iid):
+    def __init__(self, applet, iid):
         self.applet = applet
-
         self.build_passed = False
+        self.status_parser = StatusParser()
 
 	self.timeout = 5000
         self.timeout_count = 1
@@ -30,6 +31,7 @@ class MyApplet(gnomeapplet.Applet):
         #self.applet.connect("change-orient", self.change_orientation)
 
     def set_build_passed(self, new_status):
+        print("setting build_passed: "+str(new_status))
         self.build_passed = new_status
 
     # Draws applet
@@ -93,12 +95,15 @@ class MyApplet(gnomeapplet.Applet):
             self.timeout_count = 0
             self.update_status()
         self.timeout_count += 1
-            
         return True
+
+    def check_status(self):
+        self.set_build_passed(self.status_parser.get_build_colour() == "blue")
 
     # Update data displayed on icon
     def update_status(self):
-        print("updating temp")
+        print("updating status")
+        self.check_status()
         self.update_icon()
         self.update_text()
         self.update_tooltip()
@@ -111,18 +116,18 @@ class MyApplet(gnomeapplet.Applet):
             print("right")
             self.set_build_passed(False)
             
-def myapplet_factory(applet, iid):
-	MyApplet(applet, iid)
+def jenkins_applet_factory(applet, iid):
+	JenkinsApplet(applet, iid)
 	return True
 
 if len(sys.argv) == 2:
 	if sys.argv[1] == "window":
             print("Running in a window")
             mainWindow = gtk.Window(gtk.WINDOW_TOPLEVEL)
-            mainWindow.set_title("Debug Window of MyApplet")
+            mainWindow.set_title("Debug Window of JenkinsApplet")
             mainWindow.connect("destroy", gtk.main_quit)
             applet = gnomeapplet.Applet()
-            myapplet_factory(applet, None)
+            jenkins_applet_factory(applet, None)
             applet.reparent(mainWindow)
             mainWindow.show_all()
             gtk.main()
@@ -131,7 +136,7 @@ if len(sys.argv) == 2:
 if __name__ == '__main__':
 	print "Starting factory"
 	gnomeapplet.bonobo_factory("OAFIID:My_Factory", 
-                                   MyApplet.__gtype__, 
-                                   "MyApplet", 
+                                   JenkinsApplet.__gtype__, 
+                                   "JenkinsApplet", 
                                    "1.0", 
-                                   myapplet_factory)
+                                   jenkins_applet_factory)
