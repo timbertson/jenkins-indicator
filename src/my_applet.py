@@ -13,27 +13,24 @@ class MyApplet(gnomeapplet.Applet):
     RIGHT_MOUSE_BUTTON=2
 
     def __init__(self,applet,iid):
-        self.build_passed = False
-        print("init")
         self.applet = applet
+
+        self.build_passed = False
 
 	self.timeout = 5000
         self.timeout_count = 1
 
-        # Lets create the gui
         self.box = self.create_applet()
         
-        # Show icon
         self.update_icon()
 			
-        # Callbacks for timeout and change_background and orientation
+        self.applet.connect('button-press-event', self.button_press)
         self.timeout_source = gobject.timeout_add (1000, self.update_main)
         #self.applet.connect("change_background", self.change_background)
         #self.applet.connect("change-orient", self.change_orientation)
-        self.applet.connect('button-press-event', self.button_press)
 
-    def toggle_build_passed(self):
-        self.build_passed = not self.build_passed
+    def set_build_passed(self, new_status):
+        self.build_passed = new_status
 
     # Draws applet
     def create_applet(self):
@@ -73,10 +70,10 @@ class MyApplet(gnomeapplet.Applet):
         self.icon.show()
 
         if self.build_passed:
-            self.icon_path = "/usr/share/pixmaps/monitor.png"
+            self.icon_path = "/home/james/projects/Jenkins-Gnome-Applet/images/camellia_passed.png"
             self.set_icon(self.icon_path)
         else:
-            self.icon_path = "/usr/share/pixmaps/nobody.png"
+            self.icon_path = "/home/james/projects/Jenkins-Gnome-Applet/images/camellia_failed.png"
             self.set_icon(self.icon_path)
 
     def set_icon(self, path):
@@ -109,9 +106,10 @@ class MyApplet(gnomeapplet.Applet):
     def button_press(self, button, event):
         if event.button == self.LEFT_MOUSE_BUTTON:
             print("left")
-            self.toggle_build_passed()
-        elif event.button == self.RIGHT_MOUSE_BUTTON:
+            self.set_build_passed(True)
+        else:
             print("right")
+            self.set_build_passed(False)
             
 def myapplet_factory(applet, iid):
 	MyApplet(applet, iid)
