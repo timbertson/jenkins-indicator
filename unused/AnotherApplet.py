@@ -15,7 +15,7 @@ class Sample_Applet(gnomeapplet.Applet):
     image_file = '/usr/share/icons/gnome/24x24/apps/gnome-window-manager.png'
 
     logging.basicConfig(level=logging.DEBUG)
-
+ 
     def __init__(self, applet, iid):
         logging.debug('__init__')
 

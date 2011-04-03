@@ -11,10 +11,11 @@ from jenkins_status import JenkinsStatus
 def factory(applet, iid):
     status = JenkinsStatus(applet, iid)
 
-    hbox = gtk.HBox()
-    hbox.add(status.button)
-    hbox.add(status.area)
-    applet.add(hbox)
+    #hbox = gtk.HBox()
+    #hbox.add(status.button)
+    # hbox.add(status.area)
+    #hbox.add(
+    #applet.add(hbox)
 
     applet.show_all()
     return True
@@ -33,4 +34,8 @@ if len(sys.argv) == 2:
 
 if __name__ == '__main__':
 	print "Starting factory"
-	gnomeapplet.bonobo_factory("OAFIID:My_Factory", gnomeapplet.Applet.__gtype__, "My_New_Applet", "1.0", factory)
+	gnomeapplet.bonobo_factory("OAFIID:My_Factory", 
+                                   gnomeapplet.Applet.__gtype__, 
+                                   "My_New_Applet", 
+                                   "1.0", 
+                                   factory)

@@ -5,16 +5,74 @@ pygtk.require('2.0')
 
 import gnomeapplet
 import gtk
+import logging
 
 class JenkinsStatus(object):
+    title = "Jenkins Status"
+    image_file = '/usr/share/icons/gnome/24x24/apps/gnome-window-manager.png'
+    logging.basicConfig(level=logging.DEBUG)
+
     def __init__(self, applet, iid):
         self.applet = applet
+        print("Applet size is: ")
+        print(applet.get_size())
         self.setup()
 
     def setup(self): 
-        self.create_button()
-        self.create_drawing_area()
-        
+        self.create_icon()
+        # self.create_button()
+        # self.create_drawing_area()
+        # self.setup_tooltips()
+
+    # def setup_tooltips(self):
+    #     tooltips = gtk.Tooltips()
+    #     tooltips.set_tip(image, self.title)
+
+    def create_icon(self):
+        self.icon.show()
+
+        #self.set_image()
+        #self.applet.connect('button-press-event', self.button_press)
+        #self.applet.connect('change-size', self.change_size, self.image)
+        #self.applet.connect('change-background', self.change_background)
+        #self.applet.show_all()
+
+    def button_press(self, button, event):
+        logging.debug('button_press')
+        # left mouse button
+        if event.button == 1:
+            logging.debug('show guests')
+            self.set_image()
+        # right mouse button
+        elif event.button == 2:
+            logging.debug('show options')
+
+    def set_image(self):
+        size = self.applet.get_size() -2
+        pixbuf = gtk.gdk.pixbuf_new_from_file_at_size(self.image_file, size, size)
+        self.image = gtk.Image()
+        self.image.set_from_pixbuf(pixbuf)
+        self.applet.add(self.image)
+
+    # when the applet window changes size
+    def change_size(self, applet, new_size, image):
+        logging.debug('change_size')
+
+        self.do_image(self.image_file, image)
+
+    # when the theme background changes
+    def change_background(self, applet, type, color, pixmap):
+        logging.debug('change_background')
+
+        applet.set_style(None)
+        applet.modify_style(gtk.RcStyle())
+
+        if type == gnomeapplet.COLOR_BACKGROUND:
+            applet.modify_bg(gtk.STATE_NORMAL, color)
+        elif type == gnomeapplet.PIXMAP_BACKGROUND:
+            applet.get_style().bg_pixmap[gtk.STATE_NORMAL] = pixmap
+
+
     def create_button(self):
         self.button = gtk.Button()
 	self.button.set_relief(gtk.RELIEF_NONE)
