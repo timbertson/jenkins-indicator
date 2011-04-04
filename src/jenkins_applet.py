@@ -13,22 +13,47 @@ class JenkinsApplet(gnomeapplet.Applet):
     LEFT_MOUSE_BUTTON=1
     RIGHT_MOUSE_BUTTON=2
 
+    PASSED_IMAGE = "/home/james/projects/Jenkins-Gnome-Applet/images/camellia_passed.png"
+    FAILED_IMAGE = "/home/james/projects/Jenkins-Gnome-Applet/images/camellia_failed.png"
+
     def __init__(self, applet, iid):
         self.applet = applet
         self.build_passed = False
         self.status_parser = StatusParser()
 
+        self.passed_image = gtk.Image()
+        self.passed_image.set_from_file(self.PASSED_IMAGE)
+
+        self.failed_image = gtk.Image()
+        self.failed_image.set_from_file(self.FAILED_IMAGE)
+
 	self.timeout = 5000
         self.timeout_count = 1
 
         self.box = self.create_applet()
-        
-        self.update_icon()
+    
+        self.update_icons()
+        self.update_buttons()
 			
         self.applet.connect('button-press-event', self.button_press)
         self.timeout_source = gobject.timeout_add (1000, self.update_main)
         #self.applet.connect("change_background", self.change_background)
         #self.applet.connect("change-orient", self.change_orientation)
+
+        self.update_button_color(self.buttons[0])
+        self.update_button_color(self.buttons[1])
+
+    def update_button_color(self, button): 
+        color_map = button.get_colormap() 
+        color = color_map.alloc_color(self.get_build_color())
+        style = button.get_style().copy()
+        style.bg[gtk.STATE_NORMAL] = color
+
+    def get_build_color(self):
+        if self.build_passed: 
+            return "green" 
+        else: 
+            return "red"
 
     def set_build_passed(self, new_status):
         print("setting build_passed: "+str(new_status))
@@ -45,16 +70,22 @@ class JenkinsApplet(gnomeapplet.Applet):
                              gtk.gdk.CONFIGURE )
 		
         # Creates icon for applet
-        self.icon = gtk.Image()
-        self.update_icon()
-		
+        self.icons = [gtk.Image(), gtk.Image()]
+        self.update_icons()
+
+        self.buttons = [gtk.Button("camellia"), gtk.Button("camellia-ie")]
+        self.update_buttons()
+
         # Create label for temp
         self.temp = gtk.Label()
         self.update_text()
 		
         # Creates hbox with icon and temp
         self.inside_applet = gtk.HBox()
-        self.inside_applet.pack_start(self.icon)
+        self.inside_applet.pack_start(self.icons[0])
+        self.inside_applet.pack_start(self.icons[1])
+        self.inside_applet.pack_start(self.buttons[0])
+        self.inside_applet.pack_start(self.buttons[1])
         self.inside_applet.pack_start(self.temp)
             
         # Creates tooltip
@@ -68,20 +99,37 @@ class JenkinsApplet(gnomeapplet.Applet):
         return event_box
 
     # Update applet icon depending on temperature
-    def update_icon(self):
-        self.icon.show()
+    def update_icons(self):
+        for icon in self.icons:
+            self.update_icon(icon)
 
+    def update_buttons(self):
+        for button in self.buttons:
+            self.update_button(button)
+
+    def update_icon(self, icon):
+        icon.show()
         if self.build_passed:
-            self.icon_path = "/home/james/projects/Jenkins-Gnome-Applet/images/camellia_passed.png"
-            self.set_icon(self.icon_path)
+            self.set_icon(icon, self.PASSED_IMAGE)
         else:
-            self.icon_path = "/home/james/projects/Jenkins-Gnome-Applet/images/camellia_failed.png"
-            self.set_icon(self.icon_path)
+            self.set_icon(icon, self.FAILED_IMAGE)
 
-    def set_icon(self, path):
-        self.icon.clear()
+    def update_button(self, button):
+        #set the button's style to the one you created
+        self.update_button_color(button)
+
+        button.show()
+        if self.build_passed:
+            button.set_label("passed")
+            button.set_image(self.passed_image)
+        else:
+            button.set_label("failed")
+            button.set_image(self.failed_image)
+
+    def set_icon(self, icon, path):
+        icon.clear()
         gc.collect()
-        self.icon.set_from_file(self.icon_path)
+        icon.set_from_file(path)
 
     def update_text(self):
         self.temp.show()
@@ -104,7 +152,8 @@ class JenkinsApplet(gnomeapplet.Applet):
     def update_status(self):
         print("updating status")
         self.check_status()
-        self.update_icon()
+        self.update_icons()
+        self.update_buttons()
         self.update_text()
         self.update_tooltip()
 
