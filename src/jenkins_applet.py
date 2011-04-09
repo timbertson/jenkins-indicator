@@ -13,12 +13,12 @@ class JenkinsApplet(gnomeapplet.Applet):
     LEFT_MOUSE_BUTTON=1
     RIGHT_MOUSE_BUTTON=2
 
-    PASSED_IMAGE = "/home/james/projects/Jenkins-Gnome-Applet/images/camellia_passed.png"
-    FAILED_IMAGE = "/home/james/projects/Jenkins-Gnome-Applet/images/camellia_failed.png"
+    #PASSED_IMAGE = "/home/james/projects/Jenkins-Gnome-Applet/images/camellia_passed.png"
+    #FAILED_IMAGE = "/home/james/projects/Jenkins-Gnome-Applet/images/camellia_failed.png"
 
     def __init__(self, applet, iid):
         self.applet = applet
-        self.build_passed = False
+        #self.build_passed = False
         self.job_status = JobStatus()
 
         self.check_job_status()
@@ -64,11 +64,15 @@ class JenkinsApplet(gnomeapplet.Applet):
 
         self.buttons = []
         for job in self.jobs:
-            self.buttons.append(gtk.Button(job.name))
+            button = gtk.Button(job.name)
+            button.set_size_request(150,50)
+            self.buttons.append(button)
         self.update_buttons()
 
         # Create label for temp
-        #self.temp = gtk.Label()
+        self.text = gtk.Label()
+        self.text.show()
+        self.text.set_text("Status")
         #self.update_text()
 		
         # Creates hbox with icon and temp
@@ -77,12 +81,12 @@ class JenkinsApplet(gnomeapplet.Applet):
         #self.inside_applet.pack_start(self.icons[1])
         self.inside_applet.pack_start(self.buttons[0])
         self.inside_applet.pack_start(self.buttons[1])
-        #self.inside_applet.pack_start(self.temp)
+        self.inside_applet.pack_start(self.text)
             
         # Creates tooltip
         #self.tooltip = gtk.Tooltip()
         #self.update_tooltip()
-		
+
         # Adds hbox to eventbox
         event_box.add(self.inside_applet)
         app_window.add(event_box)
@@ -185,7 +189,7 @@ if len(sys.argv) == 2:
 
 if __name__ == '__main__':
 	print "Starting factory"
-	gnomeapplet.bonobo_factory("OAFIID:My_Factory", 
+	gnomeapplet.bonobo_factory("OAFIID:Jenkins_Applet_Factory", 
                                    JenkinsApplet.__gtype__, 
                                    "JenkinsApplet", 
                                    "1.0", 
