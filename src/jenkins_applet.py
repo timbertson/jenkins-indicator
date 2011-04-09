@@ -7,7 +7,7 @@ import gnomeapplet
 import sys
 import gc
 import logging
-from status_parser import StatusParser
+from job_status import JobStatus
 
 class JenkinsApplet(gnomeapplet.Applet):
     LEFT_MOUSE_BUTTON=1
@@ -19,45 +19,34 @@ class JenkinsApplet(gnomeapplet.Applet):
     def __init__(self, applet, iid):
         self.applet = applet
         self.build_passed = False
-        self.status_parser = StatusParser()
+        self.job_status = JobStatus()
 
-        self.passed_image = gtk.Image()
-        self.passed_image.set_from_file(self.PASSED_IMAGE)
+        self.check_job_status()
 
-        self.failed_image = gtk.Image()
-        self.failed_image.set_from_file(self.FAILED_IMAGE)
+        #self.passed_image = gtk.Image()
+        #self.passed_image.set_from_file(self.PASSED_IMAGE)
+        #self.failed_image = gtk.Image()
+        #self.failed_image.set_from_file(self.FAILED_IMAGE)
 
 	self.timeout = 5000
         self.timeout_count = 1
 
         self.box = self.create_applet()
     
-        self.update_icons()
+        #self.update_icons()
         self.update_buttons()
 			
-        self.applet.connect('button-press-event', self.button_press)
-        self.timeout_source = gobject.timeout_add (1000, self.update_main)
+        #self.applet.connect('button-press-event', self.button_press)
+        self.timeout_source = gobject.timeout_add (6000, self.update_main)
+        self.update_main
         #self.applet.connect("change_background", self.change_background)
         #self.applet.connect("change-orient", self.change_orientation)
 
-        self.update_button_color(self.buttons[0])
-        self.update_button_color(self.buttons[1])
+        #self.update_button_color(self.buttons[0])
+        #self.update_button_color(self.buttons[1])
 
-    def update_button_color(self, button): 
-        color_map = button.get_colormap() 
-        color = color_map.alloc_color(self.get_build_color())
-        style = button.get_style().copy()
-        style.bg[gtk.STATE_NORMAL] = color
-
-    def get_build_color(self):
-        if self.build_passed: 
-            return "green" 
-        else: 
-            return "red"
-
-    def set_build_passed(self, new_status):
-        print("setting build_passed: "+str(new_status))
-        self.build_passed = new_status
+    def check_job_status(self):
+        self.jobs = self.job_status.build()
 
     # Draws applet
     def create_applet(self):
@@ -70,27 +59,29 @@ class JenkinsApplet(gnomeapplet.Applet):
                              gtk.gdk.CONFIGURE )
 		
         # Creates icon for applet
-        self.icons = [gtk.Image(), gtk.Image()]
-        self.update_icons()
+        #self.icons = [gtk.Image(), gtk.Image()]
+        #self.update_icons()
 
-        self.buttons = [gtk.Button("camellia"), gtk.Button("camellia-ie")]
+        self.buttons = []
+        for job in self.jobs:
+            self.buttons.append(gtk.Button(job.name))
         self.update_buttons()
 
         # Create label for temp
-        self.temp = gtk.Label()
-        self.update_text()
+        #self.temp = gtk.Label()
+        #self.update_text()
 		
         # Creates hbox with icon and temp
         self.inside_applet = gtk.HBox()
-        self.inside_applet.pack_start(self.icons[0])
-        self.inside_applet.pack_start(self.icons[1])
+        #self.inside_applet.pack_start(self.icons[0])
+        #self.inside_applet.pack_start(self.icons[1])
         self.inside_applet.pack_start(self.buttons[0])
         self.inside_applet.pack_start(self.buttons[1])
-        self.inside_applet.pack_start(self.temp)
+        #self.inside_applet.pack_start(self.temp)
             
         # Creates tooltip
-        self.tooltip = gtk.Tooltip()
-        self.update_tooltip()
+        #self.tooltip = gtk.Tooltip()
+        #self.update_tooltip()
 		
         # Adds hbox to eventbox
         event_box.add(self.inside_applet)
@@ -98,45 +89,15 @@ class JenkinsApplet(gnomeapplet.Applet):
         app_window.show_all()
         return event_box
 
-    # Update applet icon depending on temperature
-    def update_icons(self):
-        for icon in self.icons:
-            self.update_icon(icon)
-
     def update_buttons(self):
-        for button in self.buttons:
-            self.update_button(button)
+        for i in range(0, len(self.buttons)):
+            self.update_button(self.buttons[i], self.jobs[i])
 
-    def update_icon(self, icon):
-        icon.show()
-        if self.build_passed:
-            self.set_icon(icon, self.PASSED_IMAGE)
-        else:
-            self.set_icon(icon, self.FAILED_IMAGE)
-
-    def update_button(self, button):
+    def update_button(self, button, job):
         #set the button's style to the one you created
-        self.update_button_color(button)
-
+        #self.update_button_color(button)
         button.show()
-        if self.build_passed:
-            button.set_label("passed")
-            button.set_image(self.passed_image)
-        else:
-            button.set_label("failed")
-            button.set_image(self.failed_image)
-
-    def set_icon(self, icon, path):
-        icon.clear()
-        gc.collect()
-        icon.set_from_file(path)
-
-    def update_text(self):
-        self.temp.show()
-        self.temp.set_text("some text")
-
-    def update_tooltip(self):
-        self.tooltip.set_text("tooltip text")
+        button.set_label(job.name+": "+job.color)
 
     def update_main(self):
         if self.timeout_count % (self.timeout / 1000) == 0:
@@ -145,25 +106,65 @@ class JenkinsApplet(gnomeapplet.Applet):
         self.timeout_count += 1
         return True
 
-    def check_status(self):
-        self.set_build_passed(self.status_parser.get_build_colour() == "blue")
-
     # Update data displayed on icon
     def update_status(self):
         print("updating status")
-        self.check_status()
-        self.update_icons()
+        self.check_job_status()
         self.update_buttons()
-        self.update_text()
-        self.update_tooltip()
+        #self.update_icons()
+        #self.update_text()
+        #self.update_tooltip()
 
-    def button_press(self, button, event):
-        if event.button == self.LEFT_MOUSE_BUTTON:
-            print("left")
-            self.set_build_passed(True)
-        else:
-            print("right")
-            self.set_build_passed(False)
+    #def update_button_color(self, button): 
+    #    color_map = button.get_colormap() 
+    #    color = color_map.alloc_color(self.get_build_color())
+    #    style = button.get_style().copy()
+    #    style.bg[gtk.STATE_NORMAL] = color
+
+    #def get_build_color(self):
+    #    if self.build_passed: 
+    #        return "green" 
+    #    else: 
+    #        return "red"
+
+    #def set_build_passed(self, new_status):
+    #    print("setting build_passed: "+str(new_status))
+    #    self.build_passed = new_status
+
+    # Update applet icon depending on temperature
+    #def update_icons(self):
+    #    for icon in self.icons:
+    #        self.update_icon(icon)
+
+    #def update_icon(self, icon):
+    #    icon.show()
+    #    if self.build_passed:
+    #        self.set_icon(icon, self.PASSED_IMAGE)
+    #    else:
+    #        self.set_icon(icon, self.FAILED_IMAGE)
+    
+    #def set_icon(self, icon, path):
+    #    icon.clear()
+    #    gc.collect()
+    #    icon.set_from_file(path)
+
+    #def update_text(self):
+    #    self.temp.show()
+    #    self.temp.set_text("some text")
+
+    #def update_tooltip(self):
+    #    self.tooltip.set_text("tooltip text")
+
+    #def check_status(self):
+    #    self.set_build_passed(self.status_parser.get_build_colour() == "blue")
+
+    #def button_press(self, button, event):
+    #    if event.button == self.LEFT_MOUSE_BUTTON:
+    #        print("left")
+    #        self.set_build_passed(True)
+    #    else:
+    #        print("right")
+    #        self.set_build_passed(False)
             
 def jenkins_applet_factory(applet, iid):
 	JenkinsApplet(applet, iid)
