@@ -7,6 +7,7 @@ import gnomeapplet
 import sys
 import gc
 import logging
+import os
 from job_status import JobStatus
 
 class JenkinsApplet(gnomeapplet.Applet):
@@ -29,7 +30,6 @@ class JenkinsApplet(gnomeapplet.Applet):
         self.update_main
 
  	self.applet.connect("button-press-event", self.show_menu, self.applet)
-
         #self.applet.connect('button-press-event', self.button_press)
         #self.applet.connect("change_background", self.change_background)
         #self.applet.connect("change-orient", self.change_orientation)
@@ -72,6 +72,7 @@ class JenkinsApplet(gnomeapplet.Applet):
 
     def update_button(self, button, job):
         self.set_color(button, job.color)
+        button.connect('button-press-event', self.button_press)
         button.show()
         button.set_label(job.name)
 
@@ -95,8 +96,10 @@ class JenkinsApplet(gnomeapplet.Applet):
         self.update_buttons()
 
     def button_press(self, button, event):
+        print("button press "+button.get_label())
         if event.button == self.LEFT_MOUSE_BUTTON:
             logging.debug('left button')
+            os.system('/usr/bin/firefox '+JobStatus.base_uri)
         elif event.button == self.RIGHT_MOUSE_BUTTON:
             logging.debug('right button')
             self.show_menu(button, event, self.applet)
