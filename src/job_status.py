@@ -9,7 +9,7 @@ class JobStatus:
         json_jobs = eval(urllib.urlopen(self.base_uri).read()).get("jobs")
         jobs = []
         for json_job in json_jobs:
-            jobs.append(Job(json_job.get("name"), json_job.get("color")))
+            jobs.append(Job(json_job.get("name")[0:20], json_job.get("color")))
         return jobs
 
 class Job:
