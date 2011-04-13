@@ -4,6 +4,7 @@ import urllib
 
 class JobStatus:
     base_uri = "http://localhost:8080/jenkins/api/python"
+    #base_uri = "http://wpcbdmdq01d.sensis.com.au:9000/api/python"
 
     def build(self):
         json_jobs = eval(urllib.urlopen(self.base_uri).read()).get("jobs")
@@ -22,4 +23,5 @@ if __name__ == '__main__':
     parser = JobStatus()
     jobs = parser.build()
     for job in jobs:
-        print("name: "+job.name+", "+job.color)
+        logging.debug("name: "+job.name+", "+job.color)
+
