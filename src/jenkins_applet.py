@@ -11,11 +11,13 @@ import gc
 import logging
 import os
 import ConfigParser  
+from config_dialog_builder import ConfigDialogBuilder
 from job_status import JobStatus
 
 class JenkinsApplet(gnomeapplet.Applet):
     LEFT_MOUSE_BUTTON=1
-    RIGHT_MOUSE_BUTTON=2
+    CENTRE_MOUSE_BUTTON=2
+    RIGHT_MOUSE_BUTTON=3
     logging.basicConfig(level=logging.DEBUG)
 
     def __init__(self, applet, iid):
@@ -117,39 +119,45 @@ class JenkinsApplet(gnomeapplet.Applet):
     def icon_press(self, button, event):
         logging.debug("icon press")
         logging.debug("button press "+button.get_label())
-        if event.button == self.LEFT_MOUSE_BUTTON:
-            logging.debug('left button')
-            #os.system('xdg-open http://localhost:18080')
-        elif event.button == self.RIGHT_MOUSE_BUTTON:
-            logging.debug('right button')
+        #if event.button == self.LEFT_MOUSE_BUTTON:
+        #    logging.debug('left button')
+        #elif event.button == self.CENTRE_MOUSE_BUTTON:
+        #    logging.debug('centre button')
+        #elif event.button == self.RIGHT_MOUSE_BUTTON:
+        #    logging.debug('right button')
+        #else:
+        #    logging.debug("button "+str(event.button))
             #self.show_menu(button, event, self.applet)
+            #os.system('xdg-open http://localhost:18080')
 
     def button_press(self, widget, event):
-        logging.debug("Button press")
         if event.button == self.LEFT_MOUSE_BUTTON:
             logging.debug('left button')
-            os.system('xdg-open http://localhost:18080')
+        elif event.button == self.CENTRE_MOUSE_BUTTON:
+            logging.debug('centre button')
         elif event.button == self.RIGHT_MOUSE_BUTTON:
             logging.debug('right button')
-            #self.show_menu(button, event, self.applet)
+            self.show_menu(widget, event, self.applet)
 
-    #def show_menu(self, widget, event, applet):
-    #    if event.type == gtk.gdk.BUTTON_PRESS and event.button == 3:
-    #        logging.debug("Button3")
-    #        widget.emit_stop_by_name("button_press_event")
-    #        self.create_menu(applet)
+    def show_menu(self, widget, event, applet):
+        logging.debug("show menu")
+        if event.type == gtk.gdk.BUTTON_PRESS and event.button == self.RIGHT_MOUSE_BUTTON:
+            logging.debug("right menu button")
+            widget.emit_stop_by_name("button_press_event")
+            self.create_menu(applet)
 
-    #def create_menu(self, applet):
-    #    propxml="""<popup name="button3">
-    #    <menuitem name="Item 3" verb="About" label="_About" 
-    #                         pixtype="stock" pixname="gtk-about"/>
-    #</popup>"""
-    #verbs = [("About", self.show_about_dialog)]
-    #applet.setup_menu(propxml, verbs, None)  
+    def create_menu(self, applet):
+        propxml=        """<popup name="button3">
+        <menuitem name="Item 3" verb="Config" label="_Config" 
+        pixtype="stock" pixname="gtk-about"/>
+        </popup>"""
+        verbs = [("Config", self.show_config_dialog)]
+        applet.setup_menu(propxml, verbs, None)  
 
-    def show_about_dialog(self, *arguments, **keywords):
-	logging.debug("Showing about dialog")
-	pass
+    def show_config_dialog(self, *arguments, **keywords):
+        builder = ConfigDialogBuilder()
+        dialog = builder.build()
+        dialog.show()
 
 def jenkins_applet_factory(applet, iid):
     JenkinsApplet(applet, iid)
