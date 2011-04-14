@@ -7,14 +7,18 @@ import gnomeapplet
 import logging
 
 class ConfigDialogBuilder:
+    def __init__(self, base_uri):
+        self.base_uri = base_uri
+
     def build(self):
         dialog = gtk.Dialog("Configure",
-                                 None,
-                                 gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
-                                 (gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
-                                  gtk.STOCK_OK, gtk.RESPONSE_ACCEPT))
+                            None,
+                            gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
+                            (gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
+                             gtk.STOCK_OK, gtk.RESPONSE_ACCEPT))
         base_server_label = gtk.Label("Base server URL")
         base_server_input = gtk.Entry()
+        base_server_input.set_text(self.base_uri)
 
         dialog.vbox.pack_start(base_server_label)
         dialog.vbox.pack_start(base_server_input)

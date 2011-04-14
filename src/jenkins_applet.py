@@ -27,10 +27,10 @@ class JenkinsApplet(gnomeapplet.Applet):
         self.red_anime_image = config.get('icon_settings', 'red_anime_image')
         self.red_image = config.get('icon_settings', 'red_image')
         self.unknown_image = config.get('icon_settings', 'unknown_image')
-
+        self.base_uri = config.get('connection_settings','base_uri')
         self.applet = applet
         self.size = self.applet.get_size() - 2
-        self.job_status = JobStatus(config.get('connection_settings','base_uri'))
+        self.job_status = JobStatus(self.base_uri)
 
         self.check_job_status()
 	self.timeout = 5000
@@ -155,7 +155,7 @@ class JenkinsApplet(gnomeapplet.Applet):
         applet.setup_menu(propxml, verbs, None)  
 
     def show_config_dialog(self, *arguments, **keywords):
-        builder = ConfigDialogBuilder()
+        builder = ConfigDialogBuilder(self.base_uri)
         dialog = builder.build()
         dialog.show()
 
