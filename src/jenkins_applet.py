@@ -16,6 +16,7 @@ from job_status import JobStatus
 class JenkinsApplet(gnomeapplet.Applet):
     LEFT_MOUSE_BUTTON=1
     RIGHT_MOUSE_BUTTON=2
+    logging.basicConfig(level=logging.DEBUG)
 
     def __init__(self, applet, iid):
         config = ConfigParser.ConfigParser()  
@@ -37,7 +38,7 @@ class JenkinsApplet(gnomeapplet.Applet):
         self.update_status()
         self.update_icons()
 			
-        self.timeout_source = gobject.timeout_add (6000, self.update_main)
+        self.timeout_source = gobject.timeout_add(6000, self.update_main)
         self.update_main
 
  	#self.applet.connect("button-press-event", self.show_menu, self.applet)
@@ -71,6 +72,8 @@ class JenkinsApplet(gnomeapplet.Applet):
             self.inside_applet.pack_start(icon)
             
         event_box.add(self.inside_applet)
+        event_box.connect('button-press-event', self.button_press)
+
         app_window.add(event_box)
         app_window.show_all()
         return event_box
@@ -112,7 +115,17 @@ class JenkinsApplet(gnomeapplet.Applet):
         #self.update_buttons()
 
     def icon_press(self, button, event):
+        logging.debug("icon press")
         logging.debug("button press "+button.get_label())
+        if event.button == self.LEFT_MOUSE_BUTTON:
+            logging.debug('left button')
+            #os.system('xdg-open http://localhost:18080')
+        elif event.button == self.RIGHT_MOUSE_BUTTON:
+            logging.debug('right button')
+            #self.show_menu(button, event, self.applet)
+
+    def button_press(self, widget, event):
+        logging.debug("Button press")
         if event.button == self.LEFT_MOUSE_BUTTON:
             logging.debug('left button')
             os.system('xdg-open http://localhost:18080')
