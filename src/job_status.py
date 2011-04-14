@@ -15,9 +15,9 @@ class JobStatus:
 
 class Job:
     def __init__(self, name, color, url):
-        self.name = name
-        self.color = color
-        self.url = url
+        self.name = name.strip()
+        self.color = color.strip()
+        self.url = url.strip()
 
 if __name__ == '__main__':
     parser = JobStatus()

@@ -93,13 +93,15 @@ class JenkinsApplet(gnomeapplet.Applet):
         icon.set_tooltip_text(job.name + " (" +job.color+")")
 
     def set_color(self, icon, job_color):
-        if job_color == "blue":
+        logging.debug("job_color: "+job_color)
+        if "blue" == job_color:
             self.update_image(icon, self.blue_image)
-        if "red_anime" == job_color:
+        elif "red_anime" == job_color:
             self.update_image(icon, self.red_anime_image)
-        elif "red" in job_color:
+        elif "red" == job_color:
             self.update_image(icon, self.red_image)
         else:
+            logging.debug("unknown color: \""+job_color+"\"")
             self.update_image(icon, self.unknown_image)
 
     def update_main(self):
