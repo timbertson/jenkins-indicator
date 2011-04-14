@@ -1,5 +1,5 @@
 <oaf_info>
-  <oaf_server iid="OAFIID:Jenkins_Applet_Factory" type="exe" location="/home/james/projects/Jenkins-Gnome-Applet/src/jenkins_applet.py">
+  <oaf_server iid="OAFIID:Jenkins_Applet_Factory" type="exe" location="/home/wpol/projects/Jenkins-Gnome-Applet/src/jenkins_applet.py">
     <oaf_attribute name="repo_ids" type="stringv">
       <item value="IDL:Bonobo/GenericFactory:1.0"/>
       <item value="IDL:Bonobo/Unknown:1.0"/>

@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import pygtk
 pygtk.require('2.0')
 import gtk
@@ -8,21 +10,24 @@ import sys
 import gc
 import logging
 import os
+import ConfigParser  
 from job_status import JobStatus
 
 class JenkinsApplet(gnomeapplet.Applet):
     LEFT_MOUSE_BUTTON=1
     RIGHT_MOUSE_BUTTON=2
-    
-    blue_image = '/usr/share/icons/gnome/24x24/apps/gnome-window-manager.png'
-    red_anime_image = '/usr/share/icons/gnome/24x24/apps/volume-knob.png'
-    red_image = '/usr/share/icons/gnome/24x24/apps/terminal.png'
-    unknown_image = '/usr/share/icons/gnome/24x24/apps/susehelpcenter.png'
 
     def __init__(self, applet, iid):
+        config = ConfigParser.ConfigParser()  
+        config.read("app.properties")  
+        self.blue_image = config.get('icon_settings', 'blue_image')
+        self.red_anime_image = config.get('icon_settings', 'red_anime_image')
+        self.red_image = config.get('icon_settings', 'red_image')
+        self.unknown_image = config.get('icon_settings', 'unknown_image')
+
         self.applet = applet
         self.size = self.applet.get_size() - 2
-        self.job_status = JobStatus()
+        self.job_status = JobStatus(config.get('connection_settings','base_uri'))
 
         self.check_job_status()
 	self.timeout = 5000

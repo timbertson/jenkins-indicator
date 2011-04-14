@@ -3,8 +3,8 @@
 import urllib
 
 class JobStatus:
-    base_uri = "http://localhost:8080/jenkins/api/python"
-    #base_uri = "http://wpcbdmdq01d.sensis.com.au:9000/api/python"
+    def __init__(self, base_uri):
+        self.base_uri = base_uri
 
     def build(self):
         json_jobs = eval(urllib.urlopen(self.base_uri).read()).get("jobs")
