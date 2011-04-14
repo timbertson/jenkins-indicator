@@ -21,13 +21,13 @@ class JenkinsApplet(gnomeapplet.Applet):
     logging.basicConfig(level=logging.DEBUG)
 
     def __init__(self, applet, iid):
-        config = ConfigParser.ConfigParser()  
-        config.read("app.properties")  
-        self.blue_image = config.get('icon_settings', 'blue_image')
-        self.red_anime_image = config.get('icon_settings', 'red_anime_image')
-        self.red_image = config.get('icon_settings', 'red_image')
-        self.unknown_image = config.get('icon_settings', 'unknown_image')
-        self.base_uri = config.get('connection_settings','base_uri')
+        self.config = ConfigParser.ConfigParser()  
+        self.config.read("app.properties")  
+        self.blue_image = self.config.get('icon_settings', 'blue_image')
+        self.red_anime_image = self.config.get('icon_settings', 'red_anime_image')
+        self.red_image = self.config.get('icon_settings', 'red_image')
+        self.unknown_image = self.config.get('icon_settings', 'unknown_image')
+        self.base_uri = self.config.get('connection_settings','base_uri')
         self.applet = applet
         self.size = self.applet.get_size() - 2
         self.job_status = JobStatus(self.base_uri)
@@ -43,10 +43,9 @@ class JenkinsApplet(gnomeapplet.Applet):
         self.timeout_source = gobject.timeout_add(6000, self.update_main)
         self.update_main
 
- 	#self.applet.connect("button-press-event", self.show_menu, self.applet)
-        #self.applet.connect('button-press-event', self.button_press)
-        #self.applet.connect("change_background", self.change_background)
-        #self.applet.connect("change-orient", self.change_orientation)
+    def update_config(self, text):
+        self.config.set("connection_settings", "base_uri", text)
+        #self.config.write("app.properties")
 
     def check_job_status(self):
         self.jobs = self.job_status.build()
@@ -155,7 +154,7 @@ class JenkinsApplet(gnomeapplet.Applet):
         applet.setup_menu(propxml, verbs, None)  
 
     def show_config_dialog(self, *arguments, **keywords):
-        builder = ConfigDialogBuilder(self.base_uri)
+        builder = ConfigDialogBuilder(self, self.base_uri)
         dialog = builder.build()
         dialog.show()
 

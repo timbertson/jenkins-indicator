@@ -72,7 +72,6 @@ class JenkinsStatus(object):
         elif type == gnomeapplet.PIXMAP_BACKGROUND:
             applet.get_style().bg_pixmap[gtk.STATE_NORMAL] = pixmap
 
-
     def create_button(self):
         self.button = gtk.Button()
 	self.button.set_relief(gtk.RELIEF_NONE)
