@@ -33,4 +33,4 @@ class ConfigDialogBuilder:
     def ok_pressed(self, dialog, response_id):
         logging.debug("ok_pressed")
         text = self.base_server_input.get_text()
-        self.applet.update_config(text)
+        self.applet.save_config(text)
