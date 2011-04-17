@@ -12,7 +12,8 @@ import logging
 import os
 import ConfigParser  
 from config_dialog_builder import ConfigDialogBuilder
-from job_status import JobStatus
+from job_status_parser import JobStatusParser
+from images import Images
 
 class JenkinsApplet(gnomeapplet.Applet):
     LEFT_MOUSE_BUTTON=1
@@ -22,14 +23,11 @@ class JenkinsApplet(gnomeapplet.Applet):
 
     def __init__(self, applet, iid):
         self.config = ConfigParser.ConfigParser()  
-        self.config.read("app.properties")  
         self.applet = applet
         self.jobs = []
-        self.icons = []
-        self.size = self.applet.get_size() - 2
+        self.max_image_size = self.applet.get_size() - 2
 
         self.reload_config()
-        self.update_icons()
 
 	self.timeout = 5000
         self.timeout_count = 1
@@ -38,18 +36,18 @@ class JenkinsApplet(gnomeapplet.Applet):
         self.timer_callback
 
     def reload_config(self):
-        self.blue_image = self.config.get('icon_settings', 'blue_image')
-        self.blue_anime_image = self.config.get('icon_settings', 'blue_anime_image')
-        self.red_anime_image = self.config.get('icon_settings', 'red_anime_image')
-        self.red_image = self.config.get('icon_settings', 'red_image')
-        self.disabled_image = self.config.get('icon_settings', 'disabled_image')
-        self.unknown_image = self.config.get('icon_settings', 'unknown_image')
-        self.base_uri = self.config.get('connection_settings','base_uri')
-        self.job_status = JobStatus(self.base_uri)
-        self.update_interval = self.config.getint('connection_settings', 'update_interval')
+        self.config.read("app.properties")  
 
+        self.images = Images(self.config)
+        self.base_uri = self.config.get('connection_settings','base_uri')
+        self.job_status_parser = JobStatusParser(self.base_uri, self.images, self.max_image_size)
+        self.update_interval = self.config.getint('connection_settings', 'update_interval')
         self.update_status()
         self.box = self.create_applet()
+
+    def update_status(self):
+        logging.debug("updating status")
+        self.jobs = self.job_status_parser.build(self.config)
 
     def save_config(self, text):
         self.config.set("connection_settings", "base_uri", text)
@@ -61,55 +59,16 @@ class JenkinsApplet(gnomeapplet.Applet):
                              gtk.gdk.POINTER_MOTION_MASK | 
                              gtk.gdk.POINTER_MOTION_HINT_MASK |
                              gtk.gdk.CONFIGURE )
-        
+
+        inside_applet = gtk.HBox()
         for job in self.jobs:
-            icon = gtk.Image() 
-            self.update_icon(icon, job)
-            icon.connect('button-press-event', self.icon_press)
-            icon.set_tooltip_text(job.name)
-            self.icons.append(icon)
-        self.update_icons()
-
-        self.inside_applet = gtk.HBox()
-        for icon in self.icons:
-            self.inside_applet.pack_start(icon)
+            inside_applet.pack_start(job.icon)
             
-        event_box.add(self.inside_applet)
+        event_box.add(inside_applet)
         event_box.connect('button-press-event', self.button_press)
-
-        print("Added to event box")
         self.applet.add(event_box)
         self.applet.show_all()
         return event_box
-    
-    def update_icons(self):
-        for icon, job in zip(self.icons, self.jobs):
-            self.update_icon(icon, job)
-
-    def update_icon(self, icon, job):
-        self.set_color(icon, job.color)
-        icon.show()
-        icon.set_tooltip_text(job.name + " (" +job.color+")")
-
-    def set_color(self, icon, job_color):
-        logging.debug("job_color: "+job_color)
-        if "blue" == job_color:
-            self.update_image(icon, self.blue_image)
-        elif "blue_anime" == job_color:
-            self.update_image(icon, self.blue_anime_image)
-        elif "red_anime" == job_color:
-            self.update_image(icon, self.red_anime_image)
-        elif "red" == job_color:
-            self.update_image(icon, self.red_image)
-        elif "disabled" == job_color:
-            self.update_image(icon, self.disabled_image)
-        else:
-            logging.debug("unknown color: \""+job_color+"\"")
-            self.update_image(icon, self.unknown_image)
-
-    def update_image(self, icon, image_file):
-        pixbuf = gtk.gdk.pixbuf_new_from_file_at_size(image_file, self.size, self.size)
-        icon.set_from_pixbuf(pixbuf)
 
     def timer_callback(self):
         if self.timeout_count % (self.timeout / 1000) == 0:
@@ -117,28 +76,6 @@ class JenkinsApplet(gnomeapplet.Applet):
             self.update_status()
         self.timeout_count += 1
         return True
-
-    def update_status(self):
-        logging.debug("updating status")
-        self.jobs = self.job_status.build()
-        self.icons = []
-        self.update_icons()
-        #self.create_applet()
-        #self.update_buttons()
-
-    def icon_press(self, button, event):
-        logging.debug("icon press")
-        logging.debug("button press "+button.get_label())
-        #if event.button == self.LEFT_MOUSE_BUTTON:
-        #    logging.debug('left button')
-        #elif event.button == self.CENTRE_MOUSE_BUTTON:
-        #    logging.debug('centre button')
-        #elif event.button == self.RIGHT_MOUSE_BUTTON:
-        #    logging.debug('right button')
-        #else:
-        #    logging.debug("button "+str(event.button))
-            #self.show_menu(button, event, self.applet)
-            #os.system('xdg-open http://localhost:18080')
 
     def button_press(self, widget, event):
         if event.button == self.LEFT_MOUSE_BUTTON:
