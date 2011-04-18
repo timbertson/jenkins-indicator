@@ -13,7 +13,7 @@ import os
 import ConfigParser  
 from config_dialog_builder import ConfigDialogBuilder
 from job_status_parser import JobStatusParser
-from setup_label import SetupLabel
+from setup_menu import SetupMenu
 from images import Images
 
 class JenkinsApplet(gnomeapplet.Applet):
@@ -29,17 +29,18 @@ class JenkinsApplet(gnomeapplet.Applet):
         self.applet = applet
         self.jobs = []
         self.max_image_size = self.applet.get_size() - 2
-        self.reload_config()
+        self.menu = SetupMenu(self)
 	self.timeout = 5000
         self.timeout_count = 1
-        gobject.timeout_add(self.update_interval, self.timer_callback)
+        self.reload_config()
         self.timer_callback
+        gobject.timeout_add(self.update_interval, self.timer_callback)
 
     def reload_config(self):
         self.config.read("app.properties")  
         self.images = Images(self.config)
         self.base_uri = self.config.get('connection_settings','base_uri')
-        self.job_status_parser = JobStatusParser(self.base_uri, self.images, self.max_image_size)
+        self.job_status_parser = JobStatusParser(self.base_uri, self.images, self.max_image_size, self.menu)
         self.update_interval = self.config.getint('connection_settings', 'update_interval')
         self.update_status()
         self.box = self.create_applet()
@@ -54,14 +55,14 @@ class JenkinsApplet(gnomeapplet.Applet):
 
     def create_applet(self):
         inside_applet = gtk.HBox()
-        setup_label = SetupLabel()
-        setup_label.setup()
-        inside_applet.pack_start(setup_label)
+        #setup_label = SetupLabel()
+        #setup_label.setup()
+        #inside_applet.pack_start(setup_label)
         for job in self.jobs:
             inside_applet.pack_start(job)
         self.applet.add(inside_applet)
         self.applet.show_all()
-        setup_label.connect('button-press-event', self.button_press, "parameters")
+        #setup_label.connect('button-press-event', self.button_press, "parameters")
         return inside_applet
 
     def timer_callback(self):
@@ -80,26 +81,6 @@ class JenkinsApplet(gnomeapplet.Applet):
         elif event.button == self.RIGHT_MOUSE_BUTTON:
             logging.debug('right button')
             self.show_menu(widget, event, self.applet)
-
-    def show_menu(self, widget, event, applet):
-        logging.debug("show menu")
-        if event.type == gtk.gdk.BUTTON_PRESS and event.button == self.RIGHT_MOUSE_BUTTON:
-            logging.debug("right menu button")
-            widget.emit_stop_by_name("button_press_event")
-            self.create_menu(applet)
-
-    def create_menu(self, applet):
-        propxml=        """<popup name="button3">
-        <menuitem name="Item 3" verb="Config" label="_Config" 
-        pixtype="stock" pixname="gtk-about"/>
-        </popup>"""
-        verbs = [("Config", self.show_config_dialog)]
-        applet.setup_menu(propxml, verbs, None)  
-
-    def show_config_dialog(self, *arguments, **keywords):
-        builder = ConfigDialogBuilder(self, self.base_uri)
-        dialog = builder.build()
-        dialog.show()
 
 def jenkins_applet_factory(applet, iid):
     JenkinsApplet(applet, iid)

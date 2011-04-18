@@ -14,7 +14,11 @@ import subprocess
 from images import Images
 
 class Job(gtk.Button):
-    def __init__(self, name, color, url, config, images, max_image_size):
+    LEFT_MOUSE_BUTTON=1
+    CENTRE_MOUSE_BUTTON=2
+    RIGHT_MOUSE_BUTTON=3
+
+    def __init__(self, name, color, url, config, images, max_image_size, menu):
         gtk.Button.__init__(self)
         self.max_image_size = max_image_size
         self.config = config
@@ -22,16 +26,28 @@ class Job(gtk.Button):
         self.color = color.strip()
         self.url = url.strip()
         self.images = images
+        self.menu = menu
 	#self.set_relief(gtk.RELIEF_NONE)
         self.set_tooltip_text(self.job_name)
         self.__setup_image(gtk.Image())
         self.connect("clicked", self.button_clicked, "some data")
+        self.connect("button_press_event", self.button_pressed, "some data")
         
     def button_clicked(self, button, data=None):
         logging.debug("button pressed in job "+self.job_name)
         open_browser_command  = '/usr/bin/google-chrome'+self.url
         #os.system(open_browser_command)
         subprocess.call(open_browser_command, shell=False)
+
+    def button_pressed(self, widget, event, parameters = None):
+        logging.debug('button press')
+        if event.button == self.LEFT_MOUSE_BUTTON:
+            logging.debug('left button')
+        elif event.button == self.CENTRE_MOUSE_BUTTON:
+            logging.debug('centre button')
+        elif event.button == self.RIGHT_MOUSE_BUTTON:
+            logging.debug('right button')
+            self.menu.show(widget, event)
 
     def __setup_image(self, image):
         color_file = self.__choose_color_file()
