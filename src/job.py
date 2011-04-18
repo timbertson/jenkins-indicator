@@ -10,48 +10,57 @@ import sys
 import gc
 import logging
 import os
+import subprocess
 from images import Images
 
-class Job:
+class Job(gtk.Button):
     def __init__(self, name, color, url, config, images, max_image_size):
+        gtk.Button.__init__(self)
         self.max_image_size = max_image_size
         self.config = config
-        self.name = name.strip()
+        self.job_name = name.strip()
         self.color = color.strip()
         self.url = url.strip()
         self.images = images
-        self.create_icon()
-
-    def create_icon(self):
-        self.icon = gtk.Image()
-        self.icon.set_tooltip_text(self.name)
-        self.__set_color()
-        self.icon.show()
-        self.icon.set_tooltip_text(self.name + " (" +self.color+")")
+	#self.set_relief(gtk.RELIEF_NONE)
+        self.set_tooltip_text(self.job_name)
+        self.__setup_image(gtk.Image())
+        self.connect("clicked", self.button_clicked, "some data")
         
-    def __set_color(self):
-        logging.debug("job_color: "+self.color)
+    def button_clicked(self, button, data=None):
+        logging.debug("button pressed in job "+self.job_name)
+        open_browser_command  = '/usr/bin/google-chrome'+self.url
+        #os.system(open_browser_command)
+        subprocess.call(open_browser_command, shell=False)
+
+    def __setup_image(self, image):
+        color_file = self.__choose_color_file()
+        data = self.__load_image_data(color_file)
+        image.set_from_pixbuf(data)
+        # is this required?
+        self.add(image)
+
+    def __choose_color_file(self):
         if "blue" == self.color:
-            self.__update_image(self.images.blue_image)
+            return self.images.blue_image
         elif "blue_anime" == self.color:
-            self.__update_image(self.images.blue_anime_image)
+            return self.images.blue_anime_image
         elif "red_anime" == self.color:
-            self.__update_image(self.images.red_anime_image)
+            return self.images.red_anime_image
         elif "red" == self.color:
-            self.__update_image(self.images.red_image)
+            return self.images.red_image
         elif "disabled" == self.color:
-            self.__update_image(self.images.disabled_image)
+            return self.images.disabled_image
         else:
             logging.debug("unknown color: \""+self.color+"\"")
-            self.update_image(self.icon, self.unknown_image)
+            return self.unknown_image
 
-    def __update_image(self, image_file):
-        pixbuf = gtk.gdk.pixbuf_new_from_file_at_size(image_file, self.max_image_size, self.max_image_size)
-        self.icon.set_from_pixbuf(pixbuf)
+    def __load_image_data(self, image_file):
+        return gtk.gdk.pixbuf_new_from_file_at_size(image_file, self.max_image_size, self.max_image_size)
 
 if __name__ == '__main__':
     parser = JobStatusParser()
     jobs = parser.build()
     for job in jobs:
-        logging.debug("name: "+job.name+", "+job.color)
+        logging.debug("name: "+job.job_name+", "+job.color)
 

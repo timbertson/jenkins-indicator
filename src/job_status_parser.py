@@ -14,6 +14,6 @@ class JobStatusParser:
         jobs = []
         for json_job in json_jobs:
             job = Job(json_job.get("name")[0:20], json_job.get("color"), json_job.get("url"), config, self.images, self.max_image_size)
+            #job.register_events()
             jobs.append(job)
         return jobs
-

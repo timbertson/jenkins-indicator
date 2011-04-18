@@ -13,6 +13,7 @@ import os
 import ConfigParser  
 from config_dialog_builder import ConfigDialogBuilder
 from job_status_parser import JobStatusParser
+from setup_label import SetupLabel
 from images import Images
 
 class JenkinsApplet(gnomeapplet.Applet):
@@ -22,22 +23,20 @@ class JenkinsApplet(gnomeapplet.Applet):
     logging.basicConfig(level=logging.DEBUG)
 
     def __init__(self, applet, iid):
+        #settings = gtk.settings_get_default()
+        #settings.set_string_property("gtk-button-images", "True", "blah")
         self.config = ConfigParser.ConfigParser()  
         self.applet = applet
         self.jobs = []
         self.max_image_size = self.applet.get_size() - 2
-
         self.reload_config()
-
 	self.timeout = 5000
         self.timeout_count = 1
-			
         gobject.timeout_add(self.update_interval, self.timer_callback)
         self.timer_callback
 
     def reload_config(self):
         self.config.read("app.properties")  
-
         self.images = Images(self.config)
         self.base_uri = self.config.get('connection_settings','base_uri')
         self.job_status_parser = JobStatusParser(self.base_uri, self.images, self.max_image_size)
@@ -54,21 +53,16 @@ class JenkinsApplet(gnomeapplet.Applet):
         #self.config.write("app.properties")
 
     def create_applet(self):
-        event_box = gtk.EventBox()
-        event_box.set_events(gtk.gdk.BUTTON_PRESS_MASK | 
-                             gtk.gdk.POINTER_MOTION_MASK | 
-                             gtk.gdk.POINTER_MOTION_HINT_MASK |
-                             gtk.gdk.CONFIGURE )
-
         inside_applet = gtk.HBox()
+        setup_label = SetupLabel()
+        setup_label.setup()
+        inside_applet.pack_start(setup_label)
         for job in self.jobs:
-            inside_applet.pack_start(job.icon)
-            
-        event_box.add(inside_applet)
-        event_box.connect('button-press-event', self.button_press)
-        self.applet.add(event_box)
+            inside_applet.pack_start(job)
+        self.applet.add(inside_applet)
         self.applet.show_all()
-        return event_box
+        setup_label.connect('button-press-event', self.button_press, "parameters")
+        return inside_applet
 
     def timer_callback(self):
         if self.timeout_count % (self.timeout / 1000) == 0:
@@ -77,7 +71,8 @@ class JenkinsApplet(gnomeapplet.Applet):
         self.timeout_count += 1
         return True
 
-    def button_press(self, widget, event):
+    def button_press(self, widget, event, parameters = None):
+        logging.debug('button press')
         if event.button == self.LEFT_MOUSE_BUTTON:
             logging.debug('left button')
         elif event.button == self.CENTRE_MOUSE_BUTTON:
@@ -113,6 +108,7 @@ def jenkins_applet_factory(applet, iid):
 if len(sys.argv) == 2:
     if sys.argv[1] == "window":
         logging.debug("Running in a window")
+
         mainWindow = gtk.Window(gtk.WINDOW_TOPLEVEL)
         mainWindow.set_title("Debug Window of JenkinsApplet")
         mainWindow.connect("destroy", gtk.main_quit)
