@@ -28,7 +28,7 @@ class Job(gtk.Button):
         self.images = images
         self.menu = menu
 	#self.set_relief(gtk.RELIEF_NONE)
-        self.set_tooltip_text(self.job_name)
+        self.set_tooltip_text(self.job_name+":"+self.color)
         self.__setup_image(gtk.Image())
         self.connect("clicked", self.button_clicked, "some data")
         self.connect("button_press_event", self.button_pressed, "some data")
