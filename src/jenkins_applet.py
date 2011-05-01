@@ -14,7 +14,7 @@ import ConfigParser
 from config_dialog_builder import ConfigDialogBuilder
 from job_status_parser import JobStatusParser
 from setup_menu import SetupMenu
-from images import Images
+from icon_types import IconTypes
 
 class JenkinsApplet(gnomeapplet.Applet):
     LEFT_MOUSE_BUTTON=1
@@ -38,9 +38,9 @@ class JenkinsApplet(gnomeapplet.Applet):
 
     def reload_config(self):
         self.config.read("app.properties")  
-        self.images = Images(self.config)
+        self.icon_types = IconTypes(self.config)
         self.base_uri = self.config.get('connection_settings','base_uri')
-        self.job_status_parser = JobStatusParser(self.base_uri, self.images, self.max_image_size, self.menu)
+        self.job_status_parser = JobStatusParser(self.base_uri, self.icon_types, self.max_image_size, self.menu)
         self.update_interval = self.config.getint('connection_settings', 'update_interval')
         self.update_status()
         self.box = self.create_applet()

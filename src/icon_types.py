@@ -1,5 +1,5 @@
 
-class Images:
+class IconTypes:
     def __init__(self, config):
         self.blue_image = config.get('icon_settings', 'blue_image')
         self.blue_anime_image = config.get('icon_settings', 'blue_anime_image')
