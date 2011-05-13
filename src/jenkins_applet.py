@@ -32,22 +32,46 @@ class JenkinsApplet(gnomeapplet.Applet):
         self.menu = SetupMenu(self)
 	self.timeout = 5000
         self.timeout_count = 1
-        self.reload_config()
+        self.images = JobImages()
+        self.load_config()
         self.timer_callback
         gobject.timeout_add(self.update_interval, self.timer_callback)
 
-    def reload_config(self):
+    def load_config(self):
         self.config.read("app.properties")  
-        self.icon_types = IconTypes(self.config)
         self.base_uri = self.config.get('connection_settings','base_uri')
-        self.job_status_parser = JobStatusParser(self.base_uri, self.icon_types, self.max_image_size, self.menu)
+        self.job_status_parser = JobStatusParser(self.base_uri, self.job_images, self.max_image_size, self.menu)
         self.update_interval = self.config.getint('connection_settings', 'update_interval')
         self.update_status()
         self.box = self.create_applet()
 
+    def reload_config(self):
+        self.update_status()
+        #self.box = self.create_applet()
+
     def update_status(self):
         logging.debug("updating status")
-        self.jobs = self.job_status_parser.build(self.config)
+        json = self.job_status_parser.build(self.config)
+
+        create_new_jobs = false
+        if(len(self.jobs) != len(json_jobs)):
+            print("Number of jobs has changed")
+            self.jobs = []
+            for i in range(len(json_jobs)):
+                json = json_jobs[i]
+                job = Job(json_job.get("name")[0:20], json_job.get("color"), json_job.get("url"), 
+                          config, self.images, self.max_image_size, self.menu)
+                self.jobs.append(job)
+        else:
+            print("Number of jobs is the same")
+            for i in range(len(json_jobs)):
+                job = self.jobs[i]
+                json = json_jobs[i]
+                
+                color = json_job.get("color")
+                job.setup(json_job.get("name")[0:20], color, json_job.get("url"), self.job_images(color))
+
+        print("jobs: "+str(self.jobs))
 
     def save_config(self, text):
         self.config.set("connection_settings", "base_uri", text)
