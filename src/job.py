@@ -18,8 +18,9 @@ class Job(gtk.Button):
     CENTRE_MOUSE_BUTTON=2
     RIGHT_MOUSE_BUTTON=3
 
-    def __init__(self, name, color, url, config, max_image_size, menu):
+    def __init__(self, name, color, url, config, max_image_size, menu, job_images):
         gtk.Button.__init__(self)
+        self.job_images = job_images
         self.max_image_size = max_image_size
         self.config = config
         self.job_name = name.strip()
@@ -30,9 +31,12 @@ class Job(gtk.Button):
         self.set_tooltip_text(self.job_name+":"+self.color)
         self.connect("clicked", self.button_clicked, "some data")
         self.connect("button_press_event", self.button_pressed, "some data")
+        self.setup(self.job_name, self.color, self.url)
 
-    def setup(self, name, color, url, image):
-        self.add(image)        
+    def setup(self, name, color, url):
+        for child in self.get_children():
+            self.remove(child)
+        self.add(self.job_images.get(color))
 
     def button_clicked(self, button, data=None):
         logging.debug("button pressed in job "+self.job_name)
