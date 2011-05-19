@@ -14,7 +14,8 @@ import ConfigParser
 from config_dialog_builder import ConfigDialogBuilder
 from job_status_parser import JobStatusParser
 from setup_menu import SetupMenu
-from icon_types import IconTypes
+from job_images import JobImages
+from job import Job
 
 class JenkinsApplet(gnomeapplet.Applet):
     LEFT_MOUSE_BUTTON=1
@@ -25,53 +26,52 @@ class JenkinsApplet(gnomeapplet.Applet):
     def __init__(self, applet, iid):
         #settings = gtk.settings_get_default()
         #settings.set_string_property("gtk-button-images", "True", "blah")
-        self.config = ConfigParser.ConfigParser()  
-        self.applet = applet
-        self.jobs = []
-        self.max_image_size = self.applet.get_size() - 2
-        self.menu = SetupMenu(self)
-	self.timeout = 5000
+	self.timeout = 1000
         self.timeout_count = 1
-        self.images = JobImages()
+        self.jobs = []
+        self.applet = applet
+        self.max_image_size = self.applet.get_size() - 2
+        self.config = ConfigParser.ConfigParser()  
         self.load_config()
+        self.base_uri = self.config.get('connection_settings','base_uri')
+        self.update_interval = self.config.getint('connection_settings', 'update_interval')
+        self.box = self.create_applet()
+        self.menu = SetupMenu(self)
+        self.job_images = JobImages(self.config, self.max_image_size)
+        self.job_status_parser = JobStatusParser(self.base_uri, self.job_images, self.max_image_size, self.menu)
+        self.update_status()
         self.timer_callback
         gobject.timeout_add(self.update_interval, self.timer_callback)
 
     def load_config(self):
         self.config.read("app.properties")  
-        self.base_uri = self.config.get('connection_settings','base_uri')
-        self.job_status_parser = JobStatusParser(self.base_uri, self.job_images, self.max_image_size, self.menu)
-        self.update_interval = self.config.getint('connection_settings', 'update_interval')
-        self.update_status()
-        self.box = self.create_applet()
 
     def reload_config(self):
         self.update_status()
-        #self.box = self.create_applet()
 
     def update_status(self):
         logging.debug("updating status")
-        json = self.job_status_parser.build(self.config)
+        json_jobs = self.job_status_parser.build(self.config)
 
-        create_new_jobs = false
+        create_new_jobs = False
         if(len(self.jobs) != len(json_jobs)):
-            print("Number of jobs has changed")
+            print("Number of jobs has changed. Was "+str(len(self.jobs))+". Is now: "+str(len(json_jobs)))
             self.jobs = []
             for i in range(len(json_jobs)):
-                json = json_jobs[i]
+                json_job = json_jobs[i]
                 job = Job(json_job.get("name")[0:20], json_job.get("color"), json_job.get("url"), 
-                          config, self.images, self.max_image_size, self.menu)
+                          self.config, self.max_image_size, self.menu)
                 self.jobs.append(job)
         else:
             print("Number of jobs is the same")
             for i in range(len(json_jobs)):
                 job = self.jobs[i]
-                json = json_jobs[i]
+                json_job = json_jobs[i]
                 
                 color = json_job.get("color")
-                job.setup(json_job.get("name")[0:20], color, json_job.get("url"), self.job_images(color))
+                job.setup(json_job.get("name")[0:20], color, json_job.get("url"), self.job_images.get(color))
 
-        print("jobs: "+str(self.jobs))
+        print("number of jobs: "+str(len(self.jobs)))
 
     def save_config(self, text):
         self.config.set("connection_settings", "base_uri", text)
