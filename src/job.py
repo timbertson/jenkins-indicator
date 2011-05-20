@@ -11,7 +11,6 @@ import gc
 import logging
 import os
 import subprocess
-from icon_types import IconTypes
 
 class Job(gtk.Button):
     LEFT_MOUSE_BUTTON=1
