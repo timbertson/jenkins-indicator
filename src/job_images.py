@@ -8,8 +8,8 @@ class JobImages:
         self.max_image_size = max_image_size
 
         self.blue = self.__setup_image('blue')
-        self.blue_anim = self.__setup_image('blue_anim')
-        self.red_anim = self.__setup_image('red_anim')
+        self.blue_anime = self.__setup_image('blue_anime')
+        self.red_anime = self.__setup_image('red_anime')
         self.red = self.__setup_image('red')
         self.disabled = self.__setup_image('disabled')
         self.unknown = self.__setup_image('unknown')
@@ -17,10 +17,10 @@ class JobImages:
     def get(self, color):
         if "blue" == color:
             return self.blue
-        elif "blue_anim" == color:
-            return self.blue_anim
-        elif "red_anim" == color:
-            return self.red_anim
+        elif "blue_anime" == color:
+            return self.blue_anime
+        elif "red_anime" == color:
+            return self.red_anime
         elif "red" == color:
             return self.red
         elif "disabled" == color:
@@ -42,10 +42,10 @@ class JobImages:
     def __choose_color_file(self, color):
         if "blue" == color:
             return self.icon_config.blue
-        elif "blue_anim" == color:
-            return self.icon_config.blue_anim
-        elif "red_anim" == color:
-            return self.icon_config.red_anim
+        elif "blue_anime" == color:
+            return self.icon_config.blue_anime
+        elif "red_anime" == color:
+            return self.icon_config.red_anime
         elif "red" == color:
             return self.icon_config.red
         elif "disabled" == color:
