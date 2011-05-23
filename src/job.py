@@ -35,6 +35,7 @@ class Job(gtk.Button):
     def setup(self, name, color, url):
         for child in self.get_children():
             self.remove(child)
+            #child.unparent()
         self.add(self.job_images.get(color))
 
     def button_clicked(self, button, data=None):
