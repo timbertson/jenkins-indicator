@@ -16,23 +16,23 @@ class JobImages:
 
     def get(self, color):
         if "blue" == color:
-            return self.__setup_image('blue')
-            #return self.blue
+            #return self.__setup_image('blue')
+            return self.blue
         elif "blue_anime" == color:
-            return self.__setup_image('blue_anime')
-            #return self.blue_anime
+            #return self.__setup_image('blue_anime')
+            return self.blue_anime
         elif "red_anime" == color:
-            return self.__setup_image('red_anime')
-            #return self.red_anime
+            #return self.__setup_image('red_anime')
+            return self.red_anime
         elif "red" == color:
-            return self.__setup_image('red')
-            #return self.red
+            #return self.__setup_image('red')
+            return self.red
         elif "disabled" == color:
-            return self.__setup_image('disabled')
-            #return self.disabled
+            #return self.__setup_image('disabled')
+            return self.disabled
         elif "unknown" == color:
-            return self.__setup_image('unknown')
-            #return self.unknown
+            #return self.__setup_image('unknown')
+            return self.unknown
         else:
             logging.debug("unknown color: "+color)
             return None

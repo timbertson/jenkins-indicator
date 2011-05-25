@@ -11,15 +11,16 @@ import gc
 import logging
 import os
 import subprocess
+from job_images import JobImages
 
 class Job(gtk.Button):
     LEFT_MOUSE_BUTTON=1
     CENTRE_MOUSE_BUTTON=2
     RIGHT_MOUSE_BUTTON=3
 
-    def __init__(self, name, color, url, config, max_image_size, menu, job_images):
+    def __init__(self, name, color, url, config, max_image_size, menu):
         gtk.Button.__init__(self)
-        self.job_images = job_images
+        self.job_images = JobImages(config, max_image_size)
         self.max_image_size = max_image_size
         self.config = config
         self.job_name = name.strip()
