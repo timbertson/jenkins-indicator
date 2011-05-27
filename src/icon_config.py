@@ -1,4 +1,3 @@
-
 class IconConfig:
     def __init__(self, config):
         self.blue = config.get('icon_settings', 'blue')

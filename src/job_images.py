@@ -34,7 +34,7 @@ class JobImages:
             #return self.__setup_image('unknown')
             return self.unknown
         else:
-            logging.debug("unknown color: "+color)
+            logging.debug("unknown color: " + color)
             return None
 
     def __setup_image(self, path):
@@ -58,7 +58,7 @@ class JobImages:
         elif "unknown" == color:
             return self.icon_config.unknown
         else:
-            logging.debug("unknown color: "+color)
+            logging.debug("unknown color: " + color)
             return None
 
     def __load_image_data(self, image_file):
