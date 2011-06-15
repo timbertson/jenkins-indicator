@@ -7,3 +7,4 @@ class IconConfig:
         self.disabled = config.get('icon_settings', 'disabled')
         self.unknown = config.get('icon_settings', 'unknown')
         self.aborted = config.get('icon_settings', 'aborted')
+        self.aborted_anime = config.get('icon_settings', 'aborted_anime')

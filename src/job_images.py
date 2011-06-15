@@ -14,6 +14,7 @@ class JobImages:
         self.disabled = self.__setup_image('disabled')
         self.unknown = self.__setup_image('unknown')
         self.aborted = self.__setup_image('aborted')
+        self.aborted_anime = self.__setup_image('aborted_anime')
 
     def get(self, color):
         print("getting jobImages for "+str(color))
@@ -38,6 +39,9 @@ class JobImages:
         elif "aborted" == color:
             #return self.__setup_image('unknown')
             return self.aborted
+        elif "aborted_anime" == color:
+            #return self.__setup_image('unknown')
+            return self.aborted_anime
         else:
             logging.debug("unknown color: " + color)
             return None
@@ -64,6 +68,8 @@ class JobImages:
             return self.icon_config.unknown
         elif "aborted" == color:
             return self.icon_config.aborted
+        elif "aborted_anime" == color:
+            return self.icon_config.aborted_anime
         else:
             logging.debug("unknown color: " + color)
             return None

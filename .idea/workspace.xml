@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f76499a0-c13d-4a76-bf53-a925d70165cb" name="Default" comment="" />
+    <list default="true" id="f76499a0-c13d-4a76-bf53-a925d70165cb" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app.properties" afterPath="$PROJECT_DIR$/src/app.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/icon_config.py" afterPath="$PROJECT_DIR$/src/icon_config.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/job_images.py" afterPath="$PROJECT_DIR$/src/job_images.py" />
+    </list>
     <ignored path="Jenkins-Gnome-Applet.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -81,25 +86,25 @@
       <file leaf-file-name="job_images.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/job_images.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="65" column="43" selection-start="2357" selection-end="2357" vertical-scroll-proportion="0.0">
+            <state line="78" column="0" selection-start="2882" selection-end="2882" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="icon_config.py" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="icon_config.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/icon_config.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="8" column="59" selection-start="479" selection-end="479" vertical-scroll-proportion="0.13605443">
+            <state line="9" column="71" selection-start="553" selection-end="553" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="app.properties" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="app.properties" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/app.properties">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="12" column="7" selection-start="577" selection-end="577" vertical-scroll-proportion="0.0">
+            <state line="13" column="68" selection-start="701" selection-end="701" vertical-scroll-proportion="0.22108844">
               <folding />
             </state>
           </provider>
@@ -132,9 +137,9 @@
         <option value="$PROJECT_DIR$/src/test.json" />
         <option value="$PROJECT_DIR$/src/job_status_parser.py" />
         <option value="$PROJECT_DIR$/src/jenkins_applet.py" />
-        <option value="$PROJECT_DIR$/src/app.properties" />
-        <option value="$PROJECT_DIR$/src/job_images.py" />
         <option value="$PROJECT_DIR$/src/icon_config.py" />
+        <option value="$PROJECT_DIR$/src/job_images.py" />
+        <option value="$PROJECT_DIR$/src/app.properties" />
       </list>
     </option>
   </component>
@@ -387,13 +392,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/jenkins_applet.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="42" column="49" selection-start="1450" selection-end="1450" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/job.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="28" column="32" selection-start="885" selection-end="885" vertical-scroll-proportion="0.0">
@@ -401,23 +399,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/app.properties">
+    <entry file="file://$PROJECT_DIR$/src/job_images.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="7" selection-start="577" selection-end="577" vertical-scroll-proportion="0.0">
+        <state line="78" column="0" selection-start="2882" selection-end="2882" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/job_images.py">
+    <entry file="file://$PROJECT_DIR$/src/jenkins_applet.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="65" column="43" selection-start="2357" selection-end="2357" vertical-scroll-proportion="0.0">
+        <state line="42" column="49" selection-start="1450" selection-end="1450" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/icon_config.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="59" selection-start="479" selection-end="479" vertical-scroll-proportion="0.13605443">
+        <state line="9" column="71" selection-start="553" selection-end="553" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="68" selection-start="701" selection-end="701" vertical-scroll-proportion="0.22108844">
           <folding />
         </state>
       </provider>
