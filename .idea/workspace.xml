@@ -2,13 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f76499a0-c13d-4a76-bf53-a925d70165cb" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Jenkins-Gnome-Applet.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Jenkins-Gnome-Applet.iml" afterPath="$PROJECT_DIR$/Jenkins-Gnome-Applet.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app.properties" afterPath="$PROJECT_DIR$/src/app.properties" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/icon_config.py" afterPath="$PROJECT_DIR$/src/icon_config.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/jenkins_applet.py" afterPath="$PROJECT_DIR$/src/jenkins_applet.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/job.py" afterPath="$PROJECT_DIR$/src/job.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/job_images.py" afterPath="$PROJECT_DIR$/src/job_images.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/job_status_parser.py" afterPath="$PROJECT_DIR$/src/job_status_parser.py" />
     </list>
     <ignored path="Jenkins-Gnome-Applet.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -68,10 +67,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="jenkins_applet.py" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="jenkins_applet.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/jenkins_applet.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="29" column="28" selection-start="798" selection-end="798" vertical-scroll-proportion="0.49488056">
+            <state line="42" column="49" selection-start="1450" selection-end="1450" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -80,7 +79,7 @@
       <file leaf-file-name="job.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/job.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="13" column="26" selection-start="239" selection-end="239" vertical-scroll-proportion="0.0">
+            <state line="28" column="32" selection-start="885" selection-end="885" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -89,7 +88,16 @@
       <file leaf-file-name="job_images.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/job_images.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="37" column="23" selection-start="1337" selection-end="1337" vertical-scroll-proportion="0.0">
+            <state line="65" column="43" selection-start="2357" selection-end="2357" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="icon_config.py" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/icon_config.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="8" column="59" selection-start="479" selection-end="479" vertical-scroll-proportion="0.13605443">
               <folding />
             </state>
           </provider>
@@ -98,7 +106,7 @@
       <file leaf-file-name="app.properties" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/app.properties">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="6" column="42" selection-start="226" selection-end="228" vertical-scroll-proportion="0.0">
+            <state line="12" column="7" selection-start="577" selection-end="577" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -107,16 +115,7 @@
       <file leaf-file-name="job_status_parser.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/job_status_parser.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="12" column="18" selection-start="269" selection-end="269" vertical-scroll-proportion="-7.2">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="test.json" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="45" column="29" selection-start="1408" selection-end="1419" vertical-scroll-proportion="0.0">
+            <state line="12" column="18" selection-start="269" selection-end="269" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -136,13 +135,13 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/icon_config.py" />
-        <option value="$PROJECT_DIR$/src/job_images.py" />
         <option value="$PROJECT_DIR$/src/job.py" />
-        <option value="$PROJECT_DIR$/src/jenkins_applet.py" />
         <option value="$PROJECT_DIR$/src/test.json" />
-        <option value="$PROJECT_DIR$/src/app.properties" />
         <option value="$PROJECT_DIR$/src/job_status_parser.py" />
+        <option value="$PROJECT_DIR$/src/jenkins_applet.py" />
+        <option value="$PROJECT_DIR$/src/app.properties" />
+        <option value="$PROJECT_DIR$/src/job_images.py" />
+        <option value="$PROJECT_DIR$/src/icon_config.py" />
       </list>
     </option>
   </component>
@@ -176,6 +175,8 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Favorites" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -210,9 +211,7 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Favorites" />
       <pane id="Scope" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -232,28 +231,6 @@
     <property name="options.searchVisible" value="true" />
   </component>
   <component name="RunManager">
-    <configuration default="true" type="PythonUnitTestConfigurationType" factoryName="Python's unittest">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <module name="Jenkins-Gnome-Applet" />
-      <option name="SCRIPT_NAME" value="" />
-      <option name="CLASS_NAME" value="" />
-      <option name="METHOD_NAME" value="" />
-      <option name="FOLDER_NAME" value="" />
-      <option name="TEST_TYPE" value="TEST_SCRIPT" />
-      <option name="PATTERN" value="" />
-      <option name="PUREUNITTEST" value="true" />
-      <method>
-        <option name="AntTarget" enabled="false" />
-        <option name="BuildArtifacts" enabled="false" />
-        <option name="Make" enabled="true" />
-        <option name="Maven.BeforeRunTask" enabled="false" />
-      </method>
-    </configuration>
     <configuration default="true" type="Remote" factoryName="Remote">
       <option name="USE_SOCKET_TRANSPORT" value="true" />
       <option name="SERVER_MODE" value="false" />
@@ -312,53 +289,6 @@
         <option name="Maven.BeforeRunTask" enabled="false" />
       </method>
     </configuration>
-    <configuration default="true" type="PythonDocTestRunConfigurationType" factoryName="Python's doctests">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <module name="Jenkins-Gnome-Applet" />
-      <option name="SCRIPT_NAME" value="" />
-      <option name="CLASS_NAME" value="" />
-      <option name="METHOD_NAME" value="" />
-      <option name="FOLDER_NAME" value="" />
-      <option name="TEST_TYPE" value="TEST_SCRIPT" />
-      <option name="PATTERN" value="" />
-      <method>
-        <option name="AntTarget" enabled="false" />
-        <option name="BuildArtifacts" enabled="false" />
-        <option name="Make" enabled="true" />
-        <option name="Maven.BeforeRunTask" enabled="false" />
-      </method>
-    </configuration>
-    <configuration default="true" type="JUnit" factoryName="JUnit">
-      <extension name="coverage" enabled="false" merge="false" />
-      <module name="" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="METHOD_NAME" />
-      <option name="TEST_OBJECT" value="class" />
-      <option name="VM_PARAMETERS" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="moduleWithDependencies" />
-      </option>
-      <envs />
-      <patterns />
-      <method>
-        <option name="AntTarget" enabled="false" />
-        <option name="BuildArtifacts" enabled="false" />
-        <option name="Make" enabled="true" />
-        <option name="Maven.BeforeRunTask" enabled="false" />
-      </method>
-    </configuration>
     <list size="0" />
     <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
       <Host>localhost</Host>
@@ -391,26 +321,26 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="24" width="1920" height="1032" extended-state="0" />
+    <frame x="-1" y="24" width="1922" height="1033" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24933119" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32964134" sideWeight="0.0" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
@@ -457,51 +387,44 @@
         <state line="2" column="50" selection-start="81" selection-end="197" vertical-scroll-proportion="0.034129694" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/icon_config.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="0" selection-start="420" selection-end="420" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/job.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="26" selection-start="239" selection-end="239" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/job_images.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="37" column="23" selection-start="1337" selection-end="1337" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="45" column="29" selection-start="1408" selection-end="1419" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="42" selection-start="226" selection-end="228" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/job_status_parser.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="18" selection-start="269" selection-end="269" vertical-scroll-proportion="-7.2">
+        <state line="12" column="18" selection-start="269" selection-end="269" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/jenkins_applet.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="28" selection-start="798" selection-end="798" vertical-scroll-proportion="0.49488056">
+        <state line="42" column="49" selection-start="1450" selection-end="1450" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/job.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="28" column="32" selection-start="885" selection-end="885" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="7" selection-start="577" selection-end="577" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/job_images.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="65" column="43" selection-start="2357" selection-end="2357" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/icon_config.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="59" selection-start="479" selection-end="479" vertical-scroll-proportion="0.13605443">
           <folding />
         </state>
       </provider>
@@ -509,73 +432,9 @@
   </component>
   <component name="masterDetails">
     <states>
-      <state key="ArtifactsStructureConfigurable.UI">
-        <settings>
-          <artifact-editor />
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="Copyright.UI">
-        <settings>
-          <splitter-proportions />
-        </settings>
-      </state>
-      <state key="FacetStructureConfigurable.UI">
-        <settings>
-          <last-edited>Android</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
       <state key="GlobalLibrariesConfigurable.UI">
         <settings>
           <last-edited>[gem] Ascii85 (v1.0.1, /home/wpol/projects/camellia/lib/jruby/lib/ruby/gems/1.8/gems/Ascii85-1.0.1)</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="JdkListConfigurable.UI">
-        <settings>
-          <last-edited>1.6</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ModuleStructureConfigurable.UI">
-        <settings>
-          <last-edited>Python|Jenkins-Gnome-Applet</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ProjectLibrariesConfigurable.UI">
-        <settings>
           <splitter-proportions>
             <option name="proportions">
               <list>

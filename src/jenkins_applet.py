@@ -40,7 +40,7 @@ class JenkinsApplet(gnomeapplet.Applet):
 
     def update_status(self):
         logging.debug("updating status")
-        json_jobs = self.job_status_parser.parse(self.config)
+        json_jobs = self.job_status_parser.parse()
 
         create_new_jobs = False
         if len(self.jobs) != len(json_jobs):
