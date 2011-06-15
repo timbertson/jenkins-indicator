@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f76499a0-c13d-4a76-bf53-a925d70165cb" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Jenkins-Gnome-Applet.iml" afterPath="$PROJECT_DIR$/Jenkins-Gnome-Applet.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app.properties" afterPath="$PROJECT_DIR$/src/app.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/icon_config.py" afterPath="$PROJECT_DIR$/src/icon_config.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/jenkins_applet.py" afterPath="$PROJECT_DIR$/src/jenkins_applet.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/job_images.py" afterPath="$PROJECT_DIR$/src/job_images.py" />
-    </list>
+    <list default="true" id="f76499a0-c13d-4a76-bf53-a925d70165cb" name="Default" comment="" />
     <ignored path="Jenkins-Gnome-Applet.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="TRACKING_ENABLED" value="true" />
