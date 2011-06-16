@@ -17,7 +17,7 @@ class JobImages:
         self.aborted_anime = self.__setup_image('aborted_anime')
 
     def get(self, color):
-        print("getting jobImages for "+str(color))
+        logging.debug("getting jobImages for "+str(color))
         if "blue" == color:
             #return self.__setup_image('blue')
             return self.blue

@@ -16,7 +16,7 @@ class JenkinsApplet(gnomeapplet.Applet):
     LEFT_MOUSE_BUTTON = 1
     CENTRE_MOUSE_BUTTON = 2
     RIGHT_MOUSE_BUTTON = 3
-    logging.basicConfig(level=logging.DEBUG)
+    logging.basicConfig(level=logging.INFO)
 
     def __init__(self, applet, iid):
         #settings = gtk.settings_get_default()
