@@ -28,7 +28,7 @@ class JenkinsApplet(gnomeapplet.Applet):
         self.max_image_size = self.applet.get_size() - 2
         #print("max image size "+str(self.max_image_size))
         self.config = ConfigParser.ConfigParser()
-        self.config.read("app.properties")
+        self.config.read("/usr/share/jenkins-status-panel/app.properties")
         self.base_uri = self.config.get('connection_settings', 'base_uri')
         self.update_interval = self.config.getint('connection_settings', 'update_interval')
         #self.menu = SetupMenu(self)
