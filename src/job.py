@@ -25,7 +25,7 @@ class Job(gtk.Button):
         #self.set_relief(gtk.RELIEF_NONE)
         self.set_tooltip_text(self.job_name + ":" + self.color)
         self.connect("clicked", self.button_clicked, "some data")
-        self.connect("button_press_event", self.button_pressed, "some data")
+#        self.connect("button_press_event", self.button_pressed, "some data")
         self.setup(self.job_name, self.color, self.url, True)
 
     def setup(self, name, color, url, reload=False):
@@ -39,21 +39,21 @@ class Job(gtk.Button):
         else:
             logging.debug("self.color hasn't changed")
 
-    def button_clicked(self, button, data=None):
-        logging.debug("button pressed in job " + self.job_name)
-        open_browser_command = '/usr/bin/google-chrome' + self.url
-        #os.system(open_browser_command)
-        subprocess.call(open_browser_command, shell=False)
-
-    def button_pressed(self, widget, event, parameters=None):
-        logging.debug('button press')
-        if event.button == self.LEFT_MOUSE_BUTTON:
-            logging.debug('left button')
-        elif event.button == self.CENTRE_MOUSE_BUTTON:
-            logging.debug('centre button')
-        elif event.button == self.RIGHT_MOUSE_BUTTON:
-            logging.debug('right button')
-            self.menu.show(widget, event)
+#    def button_clicked(self, button, data=None):
+#        logging.debug("button pressed in job " + self.job_name)
+#        open_browser_command = '/usr/bin/google-chrome' + self.url
+#        #os.system(open_browser_command)
+#        subprocess.call(open_browser_command, shell=False)
+#
+#    def button_pressed(self, widget, event, parameters=None):
+#        logging.debug('button press')
+#        if event.button == self.LEFT_MOUSE_BUTTON:
+#            logging.debug('left button')
+#        elif event.button == self.CENTRE_MOUSE_BUTTON:
+#            logging.debug('centre button')
+#        elif event.button == self.RIGHT_MOUSE_BUTTON:
+#            logging.debug('right button')
+#            self.menu.show(widget, event)
 
 if __name__ == '__main__':
     parser = JobStatusParser()

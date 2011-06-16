@@ -84,15 +84,15 @@ class JenkinsApplet(gnomeapplet.Applet):
         self.timeout_count += 1
         return True
 
-    def button_press(self, widget, event, parameters=None):
-        logging.debug('button press')
-        if event.button == self.LEFT_MOUSE_BUTTON:
-            logging.debug('left button')
-        elif event.button == self.CENTRE_MOUSE_BUTTON:
-            logging.debug('centre button')
-        elif event.button == self.RIGHT_MOUSE_BUTTON:
-            logging.debug('right button')
-            self.show_menu(widget, event, self.applet)
+#    def button_press(self, widget, event, parameters=None):
+#        logging.debug('button press')
+#        if event.button == self.LEFT_MOUSE_BUTTON:
+#            logging.debug('left button')
+#        elif event.button == self.CENTRE_MOUSE_BUTTON:
+#            logging.debug('centre button')
+#        elif event.button == self.RIGHT_MOUSE_BUTTON:
+#            logging.debug('right button')
+#            self.show_menu(widget, event, self.applet)
 
 def jenkins_applet_factory(applet, iid):
     JenkinsApplet(applet, iid)
