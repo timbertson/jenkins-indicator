@@ -1,0 +1,18 @@
+connection:
+  base_uri: http://jenkins.camellia.whitepages.sensis.com.au:9000/api/json
+  #base_uri: http://localhost:8080/jenkins/api/json
+  update_interval: 5000
+
+icons:
+  blue: /usr/share/icons/Humanity/actions/48/gtk-apply.svg
+  blue_anime: /usr/share/icons/Humanity/actions/48/media-playback-start.svg
+  red: /usr/share/icons/Humanity/actions/48/gtk-stop.svg
+  red_anime: /usr/share/icons/Humanity/emblems/48/emblem-important.svg
+  disabled: /usr/share/icons/Humanity/actions/48/button_cancel.svg
+  unknown: /usr/share/icons/Humanity/actions/48/help-contents.svg
+  aborted: /usr/share/icons/Humanity/status/48/image-missing.svg
+  aborted_anime: /usr/share/icons/Humanity/status/48/image-missing.svg
+
+unimportant:
+  - "camellia-android"
+  - "camellia-ie*"

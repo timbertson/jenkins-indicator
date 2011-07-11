@@ -29,7 +29,7 @@ class Indicator(object):
 		self.indicator = self._make_indicator()
 
 	def add_action(self, name, callback):
-		self.actions.append((name, lambda *a: callback()))
+		self.actions.append((name, callback))
 	
 	def clear(self):
 		self.actions = []
@@ -77,6 +77,9 @@ class AppIndicator(Indicator):
 	def show(self):
 		import gtk
 		if not (self.actions or self.description): return
+		def wrap_cb(cb):
+			return lambda *a: cb()
+
 		menu = gtk.Menu()
 		if self.description:
 			label = gtk.MenuItem(self.description)
@@ -86,13 +89,17 @@ class AppIndicator(Indicator):
 		for name, action in self.actions:
 			item = gtk.MenuItem(name)
 			if action is None:
-				item.set_sensitive(false)
+				item.set_sensitive(False)
 			else:
-				item.connect('activate', action, None)
+				item.connect('activate', wrap_cb(action), None)
 			item.show()
 			menu.append(item)
 		self.indicator.set_menu(menu)
 	
 	def close(self):
 		#TODO
+		pass
+
+class MenuItem(object):
+	def __init__(self, text, action=None, icon=None):
 		pass
