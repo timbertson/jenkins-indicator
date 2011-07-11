@@ -91,7 +91,8 @@ class JenkinsApplet():
 			add_job(job)
 
 		self.indicator.add_action('--', None)
-		self.indicator.add_action('reload', self.update_status)
+		self.indicator.add_action('Reload', self.update_status)
+		self.indicator.add_action('Quit', self.quit)
 
 		any_failed = any([not job.is_successful() for job in important_jobs])
 		icon = self.icons['camellia_bad'] if any_failed else self.icons['camellia_good']

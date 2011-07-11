@@ -1,0 +1,9 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Daglink update
+Comment=Jenkins status monitor
+Exec=jenkins-indicator
+Type=Application
+StartupNotify=false
+X-GNOME-Autostart-enabled=true
+
