@@ -5,10 +5,8 @@ import logging
 import json
 
 class JobStatusParser:
-    def __init__(self, base_uri, max_image_size):
+    def __init__(self, base_uri):
         self.base_uri = base_uri
-        self.max_image_size = max_image_size
-        #        self.menu = menu
 
     def parse(self):
         raw_json = urllib.urlopen(self.base_uri).read()
