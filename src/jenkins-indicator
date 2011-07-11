@@ -65,14 +65,30 @@ class JenkinsApplet():
 		jobs = [Job(json_job, self.icons) for json_job in json_jobs]
 
 		self.indicator.clear()
-		for job in jobs:
+		def important(job):
+			globs = self.config.get('unimportant', [])
+			from fnmatch import fnmatch
+			for pattern in globs:
+				if fnmatch(job.name, pattern):
+					return False
+			return True
+
+		important_jobs = filter(important, jobs)
+		unimportant_jobs = filter(lambda j: not important(j), jobs)
+
+		def add_job(job):
 			self.indicator.add_action(job.description(), self.item_callback(job.url))
-		
+
+		for job in important_jobs:
+			add_job(job)
+		self.indicator.add_action('less important:', None)
+		for job in unimportant_jobs:
+			add_job(job)
 
 		self.indicator.add_action('--', None)
 		self.indicator.add_action('reload', self.update_status)
 
-		any_failed = any([not job.is_successful() for job in jobs])
+		any_failed = any([not job.is_successful() for job in important_jobs])
 		icon = self.icons['red'] if any_failed else self.icons['blue']
 		logging.debug("icon = %s" % (icon,))
 		self.indicator.set_icon(icon)
