@@ -1,1 +1,5 @@
 A Gnome Panel Applet that should show Jenkins build status.
+
+Depends on:
+python-xdg
+python-yaml
