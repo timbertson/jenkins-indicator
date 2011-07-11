@@ -9,7 +9,6 @@ class Job(object):
 			for key in keys:
 				setattr(self, key, json_obj[key])
 		copy('name', 'color', 'url')
-		print repr(self)
 	
 	def __repr__(self):
 		return "<Job: %r>" % (self.json)

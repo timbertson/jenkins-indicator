@@ -12,6 +12,8 @@ icons:
   unknown: /usr/share/icons/Humanity/actions/48/help-contents.svg
   aborted: /usr/share/icons/Humanity/status/48/image-missing.svg
   aborted_anime: /usr/share/icons/Humanity/status/48/image-missing.svg
+  camellia_good: ../images/camellia_passed.png
+  camellia_bad: ../images/camellia_failed.png
 
 unimportant:
   - "camellia-android"

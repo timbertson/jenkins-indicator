@@ -6,6 +6,7 @@ pygtk.require('2.0')
 import gtk
 import gobject
 import sys
+import os
 import logging
 import ConfigParser
 from job_status_parser import JobStatusParser
@@ -17,7 +18,7 @@ import subprocess
 
 logging.basicConfig(level=logging.DEBUG)
 
-#TODO: xdg for app.properties
+from xdg import BaseDirectory
 
 import yaml
 class JenkinsApplet():
@@ -41,7 +42,10 @@ class JenkinsApplet():
 	
 	def load_config(self):
 		try:
-			with open('jenkins-indicator.yml') as f:
+			filename = 'jenkins-indicator.yml'
+			path = BaseDirectory.load_first_config(filename) or os.path.join(os.path.dirname(__file__), filename)
+			logging.debug("loading config from: %s" % (path,))
+			with open(path) as f:
 				self._config = yaml.load(f)
 				return self._config
 		except StandardError, e:
@@ -53,7 +57,7 @@ class JenkinsApplet():
 
 	def item_callback(self, url):
 		def cb():
-			print url
+			logging.debug("opening url: %s" % (url,))
 			open_browser_command = ['/usr/bin/google-chrome', url]
 			subprocess.call(open_browser_command)
 		return cb
@@ -63,6 +67,7 @@ class JenkinsApplet():
 		logging.debug("updating status")
 		json_jobs = self.job_status_parser.parse()
 		jobs = [Job(json_job, self.icons) for json_job in json_jobs]
+		logging.debug("Jobs are: \n  " + "\n  ".join(map(repr, jobs)))
 
 		self.indicator.clear()
 		def important(job):
@@ -89,8 +94,7 @@ class JenkinsApplet():
 		self.indicator.add_action('reload', self.update_status)
 
 		any_failed = any([not job.is_successful() for job in important_jobs])
-		icon = self.icons['red'] if any_failed else self.icons['blue']
-		logging.debug("icon = %s" % (icon,))
+		icon = self.icons['camellia_bad'] if any_failed else self.icons['camellia_good']
 		self.indicator.set_icon(icon)
 		  
 		self.indicator.show()
