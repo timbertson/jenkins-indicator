@@ -1,0 +1,18 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.net/dist/0install/jenkins-indicator.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface">
+	<name>jenkins-indicator</name>
+	<summary>jenkins-indicator</summary>
+	<publish mode="featured|third-party|package|ignore" xmlns="http://gfxmonk.net/dist/0install"/>
+	<description>
+	jenkins-indicator
+	</description>
+
+	<group main="jenkins_indicator/main.py">
+		<requires interface="http://gfxmonk.net/dist/0install/pyyaml-python2.xml"/>
+		<environment name="PYTHONPATH" insert="" mode="prepend" />
+		<environment name="XDG_CONFIG_DIRS" insert="jenkins_indicator" mode="prepend" />
+		<implementation id="." version="0.0.1">
+		</implementation>
+	</group>
+</interface>

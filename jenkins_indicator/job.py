@@ -1,6 +1,10 @@
 class Job(object):
 	tick = u'\u2713'
 	cross = u'\u2718'
+	dash  = ' - '
+	good_colors = ['blue', 'blueanime']
+	disabled_colours = ['grey']
+	okay_colors = good_colors + disabled_colours
 
 	def __init__(self, json_obj, icons):
 		self.json = json_obj
@@ -14,7 +18,10 @@ class Job(object):
 		return "<Job: %r>" % (self.json)
 
 	def is_successful(self):
-		return self.color.startswith('blue')
+		return self.color in self.okay_colors
+
+	def is_disabled(self):
+		return self.color in self.disabled_colours
 
 	def menu_item(self, action):
 		from indicator import MenuItem
@@ -22,7 +29,8 @@ class Job(object):
 
 	def description(self):
 		if(self.is_successful()):
-			return "%s %s" % (self.tick, self.name)
+			prefix = self.dash if self.is_disabled() else self.tick
+			return "%s %s" % (prefix, self.name)
 		else:
 			return "%s %s (%s)" % (self.cross, self.name, self.color)
 
