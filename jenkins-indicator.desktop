@@ -2,7 +2,7 @@
 Encoding=UTF-8
 Name=Daglink update
 Comment=Jenkins status monitor
-Exec=jenkins-indicator
+Exec=jenkins-indicator start
 Type=Application
 StartupNotify=false
 X-GNOME-Autostart-enabled=true
