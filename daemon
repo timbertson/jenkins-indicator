@@ -1,0 +1,13 @@
+#!/bin/bash
+if [ -z "$1" ]; then
+	echo "start or stop?"
+	exit 1
+fi
+flag="$1"
+shift 1
+if [ "$flag" = "start" ]; then
+	extras="--oknodo --background"
+else
+	extras=""
+fi
+exec start-stop-daemon --pidfile /tmp/jenkins-indicator.pid --"$flag" --make-pidfile --startas "$(realpath $(dirname "$1"))/run" $extras "$@"
