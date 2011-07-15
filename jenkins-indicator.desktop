@@ -1,6 +1,6 @@
 [Desktop Entry]
 Encoding=UTF-8
-Name=Daglink update
+Name=Jenkins Indicator
 Comment=Jenkins status monitor
 Exec=jenkins-indicator start
 Type=Application
