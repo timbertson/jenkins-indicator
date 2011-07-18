@@ -10,6 +10,7 @@
 
 	<group main="jenkins_indicator/main.py">
 		<requires interface="http://gfxmonk.net/dist/0install/pyyaml-python2.xml"/>
+		<requires interface="http://gfxmonk.net/dist/0install/python-beautifulsoup.xml"/>
 		<environment name="PYTHONPATH" insert="" mode="prepend" />
 		<environment name="XDG_CONFIG_DIRS" insert="jenkins_indicator" mode="prepend" />
 		<implementation id="." version="0.0.1">

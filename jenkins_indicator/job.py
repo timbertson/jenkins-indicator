@@ -11,8 +11,10 @@ class Job(object):
 		self.icons = icons
 		def copy(*keys):
 			for key in keys:
-				setattr(self, key, json_obj[key])
-		copy('name', 'color', 'url')
+				try:
+					setattr(self, key, json_obj[key])
+				except KeyError: pass
+		copy('name', 'color', 'url', 'claimed')
 	
 	def __repr__(self):
 		return "<Job: %r>" % (self.json)
@@ -34,6 +36,11 @@ class Job(object):
 			prefix = self.cross
 		desc = "%s %s" % (prefix, self.name)
 		if self.color.endswith("_anime"):
-			return desc + " (building)"
+			desc += " (building)"
+		try:
+			desc += " <claimed by %s: %s>" % (self.claimed['user'], self.claimed['reason'])
+		except AttributeError:
+			pass
+
 		return desc
 

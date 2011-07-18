@@ -1,5 +1,6 @@
 connection:
   base_uri: http://jenkins.camellia.whitepages.sensis.com.au:9000/api/json
+  base_uri: http://jenkins.camellia.whitepages.sensis.com.au:9000
   #base_uri: http://localhost:8080/jenkins/api/json
   update_interval: 5000
 

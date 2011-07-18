@@ -10,4 +10,4 @@ if [ "$flag" = "start" ]; then
 else
 	extras=""
 fi
-exec start-stop-daemon --pidfile /tmp/jenkins-indicator.pid --"$flag" --make-pidfile --startas "$(realpath $(dirname "$1"))/run" $extras "$@"
+exec start-stop-daemon --pidfile /tmp/jenkins-indicator.pid --"$flag" --make-pidfile --startas "$(realpath $(dirname "$1"))/run" -- $extras "$@"
