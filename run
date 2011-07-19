@@ -1,3 +1,3 @@
 #!/bin/bash
-cd "$(dirname "$0")"
-exec 0launch "$(dirname "$1")/jenkins-indicator.xml" "$@"
+set -x
+exec 0launch "$(realpath "$(dirname "$0")")/jenkins-indicator.xml" "$@"
